@@ -1,0 +1,145 @@
+﻿Flowchart Beschreibung für 
+Schuldenkompass Plattform 
+
+ 
+
+1. Akteure (Swimlanes) 
+● Nutzer (Betroffene Person) 
+
+ 
+● Betreuer / Vormund / Sozialarbeiter 
+
+ 
+● Plattform-System 
+
+ 
+● Institutionen (Jobcenter, Beratungsstelle, Behörden) 
+
+ 
+● Partner / Community / Influencer 
+
+ 
+
+ 
+
+2. Hauptflows 
+ 
+
+Flow A: Einladung & Registrierung 
+
+Nutzer 
+ → erhält Einladung (via NGO/Jobcenter/Partner) 
+ → öffnet Link / App 
+ → registriert sich (eingibt Basisdaten, akzeptiert Datenschutz) 
+ → lädt ggf. Nachweise (Arztattest, Banknachweis) hoch 
+
+Plattform-System 
+ → validiert Daten (formale Prüfung) 
+ → sendet Bestätigung & onboarding Informationen 
+
+Betreuer / Sozialarbeiter 
+ → erhält Benachrichtigung über neuen Nutzer (optional) 
+ → prüft Daten ggf. manuell 
+
+ 
+
+Flow B: Stabilitätsprüfung & Freischaltung 
+
+
+
+Plattform-System 
+ → prüft Stabilität anhand Regeln und hochgeladener Nachweise 
+ → wenn unklar → setzt Status „Prüfung ausstehend“ 
+
+Betreuer / Sozialarbeiter 
+ → manuelle Prüfung und Rückmeldung 
+ → genehmigt oder lehnt ab 
+ → bei Ablehnung → Empfehlung zur Stabilisierung (z.B. Suchthilfe) 
+
+Nutzer 
+ → wird über Ergebnis informiert 
+ → bei Genehmigung → erhält Zugang zur Plattform und ersten Funktionen 
+
+ 
+
+Flow C: Zielvereinbarung & Matching 
+
+Nutzer + Betreuer 
+ → definieren gemeinsam realistische Ziele (z.B. Teilnahme an Kurs, Community-Arbeit) 
+ → Nutzer kann Aufgaben auswählen oder bekommt Vorschläge 
+
+Plattform-System 
+ → Matching Algorithmus schlägt Aufgaben, Kurse, Communities vor 
+ → Nutzer nimmt Aufgaben an 
+
+ 
+
+Flow D: Aktive Nutzung & Progress Tracking 
+
+Nutzer 
+ → nimmt an virtuellen Beratungsterminen teil (Video/Chat) 
+ → erfüllt Aufgaben & lädt Nachweise hoch (Fotos, Berichte) 
+ → nutzt Habit Tracker (z.B. tägliche Check-ins) 
+ → erhält Feedback & Motivation (Gamification) 
+
+Plattform-System 
+ → wertet Daten aus, aktualisiert Fortschrittsstatus 
+ → schaltet Zertifikate / neue Funktionen frei 
+
+Community / Partner 
+ → sieht Nutzer-Beiträge, bietet Hilfe oder Jobchancen an 
+
+ 
+
+Flow E: Institutionelles Reporting 
+
+Plattform-System 
+ → generiert DSGVO-konforme Berichte & Fortschrittsübersichten 
+ → stellt diese read-only den Institutionen (Jobcenter, Beratungsstellen) zur Verfügung 
+
+
+
+Institutionen 
+ → überprüfen Fortschritte 
+ → entscheiden über weitere Förderungen / Maßnahmen 
+
+ 
+
+Flow F: Betreuung & Support 
+
+Betreuer / Vormund 
+ → überwacht Nutzer-Fortschritt 
+ → gibt Hilfestellungen, setzt bei Bedarf Termine 
+ → kann Nutzer in Stabilisierungskurse schicken 
+
+ 
+
+3. Beispiel Swimlane-Text für Einladung & 
+Registrierung 
+
+Akteur Aktion Ergebnis / Nächster Schritt 
+
+NGO / Jobcenter Sendet Einladung Nutzer erhält Link / QR-Code 
+
+Nutzer Öffnet Link, registriert Plattform validiert Daten 
+sich 
+
+Plattform-System Prüfung Daten Bestätigung an Nutzer & Info zum 
+Onboarding 
+
+Betreuer / Optional: Prüft manuell Genehmigt / fordert mehr Infos an 
+Sozialarbeiter 
+
+ 
+
+4. Hinweise zur Umsetzung 
+● Jeder Flow beginnt mit einem Event (Einladung, Login, Zielsetzung etc.) 
+
+ 
+● Entscheidungen führen zu Verzweigungen (z.B. Freischaltung ja/nein) 
+
+ 
+● Aktionen und Reaktionen wechseln sich ab (User input – System feedback) 
+
+ 
+● Swimlanes zeigen klare Verantwortlichkeiten & Zugriffsmöglichkeiten

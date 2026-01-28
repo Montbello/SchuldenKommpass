@@ -1,0 +1,433 @@
+﻿Design Document – Schuldenkompass 
+ 
+
+1. UX-Prinzipien 
+1.1 Nutzerzentriert & empathisch 
+
+● Fokus auf die Bedürfnisse der Nutzer mit oft prekärem Hintergrund 
+ 
+
+● Sanfte, motivierende Ansprache – kein Druck oder Stigmatisierung 
+ 
+
+● Einfache Sprache, klare Handlungsaufforderungen 
+ 
+
+● Barrierefreiheit: große Schrift, kontrastreiche Farben, Screenreader-Kompatibilität 
+ 
+
+1.2 Progressiv & modular 
+
+● Schritt-für-Schritt Onboarding 
+ 
+
+● Fokus auf „nächster machbarer Schritt“ statt Überforderung 
+ 
+
+● Modularer Aufbau der Features, um auf individuelle Bedürfnisse einzugehen 
+ 
+
+1.3 Vertrauen & Transparenz 
+
+● Datenschutz-Hinweise klar und verständlich 
+ 
+
+● Sichtbare Nachweise von Fortschritt und Leistungen 
+ 
+
+● Keine Sanktionen, nur positive Verstärkung 
+ 
+
+1.4 Community & Empowerment 
+
+● Sichtbarkeit in einer unterstützenden Community 
+ 
+
+● Gamification-Elemente zur Motivation (Punkte, Badges, Unlocks) 
+ 
+
+● Klare Rollen und Zugänge (Nutzer, Berater, Vormund, Institution) 
+ 
+
+1.5 Integration & Vernetzung 
+
+
+
+● Nahtlose Schnittstellen zu Jobportalen, Behörden, Beratungen 
+ 
+
+● DSGVO-konforme Datenübergabe 
+ 
+
+● Einbettung virtueller Termine (Video/Chat) 
+ 
+
+ 
+
+2. Konkrete Screens & Funktionen 
+ 
+
+2.1 Startseite / Dashboard 
+
+Zweck: Übersichtlicher Einstiegspunkt für Nutzer – zeigt aktuellen Fortschritt, anstehende 
+Termine, offene Aufgaben. 
+
+Elemente: 
+
+● Begrüßung mit Namen (personalisierte Ansprache) 
+ 
+
+● Fortschrittsanzeige (z.B. Prozent, Level, Punkte) 
+ 
+
+● Nächster machbarer Schritt / To-Do-Liste 
+ 
+
+● Kalenderansicht mit anstehenden Beratungsterminen 
+ 
+
+● Quick-Access Buttons: Aufgaben, Community, Beratung, Zertifikate 
+ 
+
+2.2 Registrierung & Onboarding 
+
+Zweck: Einfacher, barrierefreier Einstieg mit Fokus auf Datenaufnahme und Vertrauen. 
+
+Schritte: 
+
+● Eingabe Basisdaten (Name, Alter, Einwilligung Datenschutz) 
+ 
+
+● Hochladen von Nachweisen (Arztbericht, Banknachweis) 
+ 
+
+● Erfassung Fähigkeiten und Interessen (Multiple Choice & Freitext) 
+ 
+
+● Sanfte Storytelling-Komponente: Nutzer erzählt kurz seine Geschichte (freiwillig) 
+ 
+
+● Übersicht & Bestätigung 
+
+ 
+
+
+
+2.3 Profil & Fähigkeiten 
+
+Zweck: Übersicht über persönliche Fähigkeiten, Beiträge und Stabilität. 
+
+Elemente: 
+
+● Profilbild, kurze Bio 
+ 
+
+● Fähigkeiten in Kategorien (z.B. handwerklich, künstlerisch, digital) 
+ 
+
+● Nachweise (Zertifikate, absolvierte Kurse) 
+ 
+
+● Fortschritts- & Stabilitätsindikatoren 
+ 
+
+● Möglichkeit zum Bearbeiten & Aktualisieren 
+ 
+
+ 
+
+2.4 Aufgaben & Community 
+
+Zweck: Aufgaben annehmen, Fortschritt dokumentieren, in der Community sichtbar sein. 
+
+Elemente: 
+
+● Liste der verfügbaren Aufgaben mit Beschreibung, Dauer, Anforderungen 
+ 
+
+● Möglichkeit zur Anmeldung und Statusanzeige (in Bearbeitung, erledigt) 
+ 
+
+● Upload-Funktion für Nachweise (Fotos, Berichte) 
+ 
+
+● Community-Feed (Beiträge, Likes, Kommentare) 
+ 
+
+● Gamification-Anzeige (Punkte, Badges) 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+2.5 Beratungstermine (Video/Chat) 
+
+Zweck: Virtuelle Beratung, Coaching und Unterstützung. 
+
+Elemente: 
+
+● Kalenderintegration mit Terminübersicht 
+ 
+
+● Erinnerungen / Push-Nachrichten 
+ 
+
+● Video- & Chatfunktion direkt in der App 
+ 
+
+● Dokumentenfreigabe während Termin (z.B. PDFs, Nachweise) 
+ 
+
+● Nachbereitung & Feedbackmöglichkeit 
+ 
+
+ 
+
+2.6 Zertifikate & Unlocks 
+
+Zweck: Sichtbare Belohnung für Fortschritt, Motivationsfaktor. 
+
+Elemente: 
+
+● Übersicht über erworbene Zertifikate / Badges 
+ 
+
+● Unlockbare Funktionen (z.B. erweiterte Sichtbarkeit, Zugang zu Jobangeboten) 
+ 
+
+● Fortschrittsbalken zu nächsten Unlocks 
+ 
+
+ 
+
+2.7 Institutionen-Dashboard (read-only) 
+
+Zweck: Institutionen (Jobcenter, Beratungsstellen) erhalten transparenten Einblick in 
+Fortschritte ihrer Klienten. 
+
+Elemente: 
+
+● Liste betreuter Nutzer mit Status & Fortschritt 
+ 
+
+● Filter nach Status, Fähigkeiten, Stabilität 
+ 
+
+● Download/Export Funktion für Berichte 
+ 
+
+● Benachrichtigungen über kritische Ereignisse 
+ 
+
+
+
+ 
+
+3. Visuelle & Interaktive Designrichtlinien 
+● Farbpalette: Beruhigende, vertrauenswürdige Farben (Blau, Grün, sanfte 
+
+Grau-Töne) 
+ 
+
+● Typografie: Klare serifenlose Schriftarten, gut lesbar 
+ 
+
+● Iconographie: Intuitive Symbole für Navigation & Statusanzeigen 
+ 
+
+● Animationen: Sanfte Microinteractions (z.B. beim Erreichen eines Unlocks) 
+ 
+
+● Responsivität: Optimiert für Mobilgeräte, Tablets und Desktop 
+ 
+
+ 
+
+ Beispiel-User-Flows mit Screens 
+Use Case Screen-Reihen Kernfunktionen Beschreibung / Details 
+
+folge 
+
+Neue Start → Datenerfassung, Der Nutzer beginnt auf der 
+Registrierun Registrierung Einwilligung, Startseite, gibt persönliche 
+g → Nachweise Storytelling Daten ein, lädt notwendige 
+
+Upload → Nachweise hoch (z.B. 
+Onboarding finanzielle Lage, ärztliche 
+
+Bescheinigungen) und wird 
+durch ein kuratiertes 
+Onboarding geführt, bei dem 
+er seine Fähigkeiten und Ziele 
+erzählt. Dabei wird die 
+DSGVO-Einwilligung für 
+Datenverarbeitung eingeholt. 
+Ein sanfter Einstieg ohne 
+Überforderung. 
+
+
+
+Aufgaben Dashboard → Aufgabenmanagemen Vom Haupt-Dashboard sieht 
+annehmen & Aufgabenliste t, Upload, der Nutzer verfügbare 
+abschließen → Aufgabe Gamification Aufgaben (z.B. soziale Arbeit, 
+
+annehmen → Jobcenter-Aufgaben). Er 
+Nachweise nimmt eine Aufgabe an, 
+hochladen → erledigt sie und lädt 
+Fortschritt anschließend einen Nachweis 
+anzeigen (Foto, Dokument, Video) hoch. 
+
+Das System bewertet den 
+Fortschritt, vergibt Punkte und 
+zeigt den aktuellen Status auf 
+dem Dashboard an. Motivation 
+durch Belohnungen. 
+
+Virtuelle Dashboard → Terminplanung, Der Nutzer plant über den 
+Beratung Kalender → Videoanruf, Kalender einen Termin mit 
+
+Termin Dokumententeilung einem Schuldnerberater oder 
+auswählen → Coach. Die Plattform 
+Video/Chat ermöglicht den Video-Call 
+
+direkt im Browser, ergänzt 
+durch einen Chat für 
+Nachfragen. Wichtige 
+Dokumente können in der 
+Sitzung geteilt oder hinterlegt 
+werden (z.B. Schuldenpläne). 
+Nach dem Termin werden 
+Zusammenfassungen und 
+To-Dos sichtbar gemacht. 
+
+Fortschritt Dashboard → Fortschrittsübersicht, Der Nutzer kann jederzeit sein 
+zeigen Profil → Motivation Profil öffnen und sieht dort 
+
+Zertifikate & eine Übersicht seines 
+Unlocks Fortschritts: erledigte 
+
+Aufgaben, gesammelte 
+Zertifikate, freigeschaltete 
+Funktionen und erreichte 
+Levels. Dieses visuelle 
+Feedback erhöht die 
+Motivation und schafft 
+Vertrauen gegenüber Beratern 
+und Partnerinstitutionen. 
+
+ 
+
+Detaillierte Beschreibung der User-Flows: 
+
+1. Neue Registrierung 
+
+
+
+● Start-Screen: Begrüßung mit kurzer Erklärung des Angebots. Button „Registrieren“. 
+ 
+
+● Registrierung: Formular für persönliche Angaben (Name, Geburtsdatum, E-Mail, 
+Passwort). 
+ 
+
+● Nachweise Upload: Upload von Dokumenten, die die finanzielle Lage und/oder 
+Einschränkungen belegen (z.B. ärztliche Atteste, Banknachweise). 
+Fortschrittsanzeige. 
+ 
+
+● Onboarding: Interaktive Fragen zum Hintergrund, Fähigkeiten, Zielen. Eingabe einer 
+persönlichen Story oder Motivation (kann optional sein). 
+ 
+
+● Einwilligung: DSGVO-konforme Einwilligungserklärung für Datenverarbeitung und 
+Kommunikation. 
+ 
+
+● Abschluss: Willkommen-Screen mit einer kurzen Erklärung der nächsten Schritte. 
+ 
+
+ 
+
+2. Aufgaben annehmen & abschließen 
+
+● Dashboard: Übersicht aller verfügbaren und laufenden Aufgaben. Anzeige von 
+Punkten, Level, Community-News. 
+ 
+
+● Aufgabenliste: Filterbare Liste mit kurzen Beschreibungen der Aufgaben, 
+geschätzter Dauer und Anforderungen. 
+ 
+
+● Aufgabe annehmen: Button „Annehmen“, anschließend wird Aufgabe im 
+Nutzerprofil gebucht. 
+ 
+
+● Nachweise hochladen: Nach Erledigung kann der Nutzer Fotos, Videos oder 
+Dokumente hochladen, um seine Leistung zu belegen. 
+ 
+
+● Fortschritt anzeigen: Fortschrittsbalken und Punktestand aktualisieren sich, 
+Belohnungen und Unlocks werden angezeigt. 
+ 
+
+ 
+
+3. Virtuelle Beratung 
+
+● Dashboard → Kalender: Übersicht aller geplanten und verfügbaren Termine. 
+Möglichkeit, neue Termine zu buchen. 
+ 
+
+● Termin auswählen: Auswahl eines freien Slots bei verfügbaren Beratern/Coaches. 
+Terminbestätigung. 
+ 
+
+
+
+● Video/Chat: Integration eines WebRTC-basierten Videochats (z.B. Jitsi, Twilio) direkt 
+in der App. 
+ 
+
+● Dokumententeilung: Möglichkeit, Dokumente vor, während oder nach dem Termin 
+hochzuladen und zu teilen. 
+ 
+
+● Nachbereitung: Zusammenfassung des Termins, To-Do-Liste für den Nutzer und 
+evtl. Zertifikate für absolvierte Beratungen. 
+ 
+
+ 
+
+4. Fortschritt zeigen 
+
+● Dashboard → Profil: Nutzer sieht seine Gesamtentwicklung mit Statistiken (z.B. 
+erledigte Aufgaben, verbrachte Stunden). 
+ 
+
+● Zertifikate & Unlocks: Visualisierung von erreichten Meilensteinen, digitalen 
+Zertifikaten, Level-Ups oder freigeschalteten Funktionen (z.B. Zugang zu 
+höherwertigen Aufgaben, mehr Sichtbarkeit in der Community). 
+ 
+
+● Motivationshilfen: Gamification-Elemente wie Badges, Ranglisten und positive 
+Rückmeldungen. 
+
+ 
+
+5. Fazit 
+Das Design legt besonderen Wert auf Vertrauen, Motivation und Einfachheit, um eine 
+herausfordernde Zielgruppe bestmöglich zu unterstützen. Durch eine modulare, skalierbare 
+UX-Architektur ist die Plattform sowohl für Einsteiger als auch für erfahrene Nutzer geeignet 
+und bietet gleichzeitig den Institutionen und Partnern wertvolle Transparenz.

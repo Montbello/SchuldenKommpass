@@ -1,0 +1,13 @@
+{
+  "name": "schuldenkompass",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend",
+    "common"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=frontend",
+    "server": "npm start --workspace=backend"
+  }
+}

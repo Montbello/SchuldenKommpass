@@ -1,0 +1,279 @@
+﻿Plattform Flow Dokument – 
+Schuldenkompass 
+ 
+
+1. Zweck & Kontext 
+Die Plattform Schuldenkompass wird als digitale, zertifizierte Lösung (AZAV) konzipiert, die 
+staatliche Förderungen über Bildungsgutscheine und schuldenberatende Maßnahmen 
+erhält. Die Plattform bietet Betroffenen, die oft aus prekären sozialen Lagen kommen 
+(Obdachlosigkeit, Suchterkrankungen, Krankheit, eingeschränkte Arbeitsfähigkeit), eine 
+unterstützende, vertrauenswürdige Umgebung. 
+
+Ziel: 
+ Nutzer*innen werden nicht nur begleitet, sondern ihr Fortschritt, ihre Fähigkeiten und 
+Stabilisierung werden messbar, sichtbar und belegbar gemacht – sowohl für sie selbst als 
+auch für Beratungsstellen, Behörden und Partner. 
+
+ 
+
+2. Wichtige Rahmenbedingungen 
+● Nachweis geistiger/körperlicher Einschränkungen: z.B. ärztliche Atteste 
+
+ 
+● Nachweis der finanziellen Lage: z.B. von Hausbank oder Jobcenter 
+
+ 
+● Digitale Vernetzung mit Jobportalen, Behörden und Partnern: DSGVO-konforme 
+
+APIs für Daten- und Berichtsaustausch 
+ 
+
+● Berücksichtigung von Betreuungspersonen / Vormündern: Deren Zugang wird 
+über Berechtigungen gesteuert 
+ 
+
+● Zusammenarbeit mit zahlreichen Institutionen: 
+ 
+
+○ Agentur für Arbeit, Jobcenter, Sozialämter, Jugendämter, Integrationsämter 
+ 
+
+○ Kirchliche und gemeinnützige Schuldnerberatungen (Caritas, Diakonie, DRK, 
+AWO) 
+ 
+
+○ Fachverbände, Verbraucherzentralen 
+ 
+
+○ Psychosoziale Dienste und Suchthilfe (als Partner für Stabilisierung) 
+ 
+
+
+
+3. High-Level User Journey 
+Schritt Beschreibung Beteiligte Akteure 
+
+1. Einladung / Nutzer wird durch NGO, Jobcenter, NGO, Jobcenter, 
+Empfehlung Beratungsstelle oder digitale Partner Sozialarbeiter, 
+
+eingeladen Plattform 
+
+2. Sanftes Erfassung der Geschichte, Fähigkeiten, Nutzer, Betreuer, 
+Onboarding aktuelle Lage (ggf. Unterstützung durch Plattform 
+
+Betreuer) 
+
+3. Stabilitätsprüfung Manuelle & algorithmische Prüfung der Plattform, Betreuer, 
+Stabilität & Voraussetzungen (z.B. Atteste, Ärzte, Bank 
+finanzielle Daten) 
+
+4. Zieldefinition Gemeinsames Festlegen eines ersten Nutzer, Berater, 
+realistischen Ziels (z.B. Beratung, kleine Plattform 
+Community-Aufgabe) 
+
+5. Aktive Phase Teilnahme an virtuellen Terminen, Nutzer, Berater, 
+Erfüllung von Aufgaben, Beiträge in Community 
+Community 
+
+6. Darstellung des individuellen Fortschritts, Nutzer, Institutionen 
+Fortschrittsanzeige Habit-Tracking, Zertifikate 
+
+7. Unlocks & Freischaltung neuer Funktionen, Nutzer, Plattform, 
+Anreize Sichtbarkeit, mögliche Vergütungen oder Partner 
+
+Jobangebote 
+ 
+
+4. Detaillierter Flow und Features 
+4.1 Einladung & Registrierung 
+
+● Nutzer erhält Einladung via Email, SMS oder QR-Code von Partnerinstitution 
+ 
+
+● Registrierung: einfache, barrierearme Eingabe von Basisdaten 
+ 
+
+● Zustimmung zu Datenschutz & Berechtigungen 
+ 
+
+● Option für Betreuungspersonen/Vormund, Begleitpersonen zu hinterlegen 
+
+ 
+
+ 
+ 
+
+
+
+4.2 Onboarding & Profilanlage 
+
+● Erfassung von: 
+ 
+
+○ Biografie & Schuldensituation (freiwillig, sensibel) 
+ 
+
+○ Fähigkeiten & Interessen (z.B. handwerklich, kreativ, digital) 
+ 
+
+○ Nachweise über Einschränkungen (Upload Arztbericht, Bankauszug) 
+ 
+
+● Angebot von Tutorials & Einführung in Plattformfunktionen 
+ 
+
+4.3 Stabilitätsprüfung & Freischaltung 
+
+● Automatische Vorprüfung durch Regeln & KI-basierte Indikatoren 
+ 
+
+● Manuelle Prüfung durch Sozialarbeiter/Betreuer (z.B. Abgleich mit Jobcenter-Daten) 
+ 
+
+● Bei Bedarf Zuweisung in vorbereitenden Stabilisierungskurs (Suchthilfe, 
+Psychosoziale Beratung) 
+ 
+
+● Freischaltung für aktive Nutzung bei positiver Prüfung 
+ 
+
+4.4 Zielvereinbarung & Matching 
+
+● Nutzer definiert mit Berater ein erstes Ziel (z.B. Teilnahme an Beratung, Minijob, 
+Community-Aufgabe) 
+ 
+
+● Matching-Algorithmus schlägt passende Aufgaben, Communities, 
+Coaching-Angebote vor 
+ 
+
+● Aufgaben können z.B. Essensausgabe, Kunstworkshops, Hilfstätigkeiten sein 
+ 
+
+4.5 Aktive Nutzung & Progress Tracking 
+
+● Teilnahme an virtuellen Beratungsterminen (via Video/Chat) 
+ 
+
+● Erfüllung und Dokumentation von Aufgaben und Beiträgen 
+ 
+
+● Habit-Tracker führt Verlässlichkeit und Aktivität als Datenpunkt 
+ 
+
+● Gamification-artige Unlocks: Zertifikate, neue Funktionen, erhöhte Sichtbarkeit 
+ 
+
+● Feedback- und Motivationsmechanismen (ohne Druck) 
+ 
+
+
+
+4.6 Sichtbarkeit & Community 
+
+● Nutzer erhält Sichtbarkeit in seiner Community, die von Influencern/Plattformpartnern 
+betreut wird 
+ 
+
+● Möglichkeit zur Bewerbung bei Partnerunternehmen oder in Projekten 
+ 
+
+● Aufbau eines stabilen, unterstützenden Netzwerks 
+ 
+
+4.7 Institutionelles Dashboard 
+
+● Institutionen (Jobcenter, Beratungsstellen) erhalten DSGVO-konformen read-only 
+Zugang 
+ 
+
+● Fortschrittsberichte, Teilnahmeübersichten, Zertifikatsvalidierung 
+ 
+
+● Option zur einfachen Beantragung von Fördermitteln / Bildungsgutscheinen über 
+Plattform 
+ 
+
+5. UX-Prinzipien 
+● Nächster kleiner machbarer Schritt: Kein Überfordern, kein Druck, nur erreichbare 
+
+Aufgaben 
+ 
+
+● Barrierefreiheit: Mobile, einfache Sprache, große Schriften 
+ 
+
+● Vertrauen & Transparenz: Klare Hinweise, keine Sanktionen 
+ 
+
+● Community & Empowerment: Zusammenarbeit statt Isolation 
+ 
+
+● Integration in bestehende Systeme: Nahtlose Datenübergabe, Schnittstellen 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+6. Inspiration & potentielle Partnerplattformen 
+● Skool.com – Minimalistisches Community Learning mit starker Gamification & 
+
+Progress Tracking 
+ 
+
+● Circle.so – Community Building mit Fokus auf Engagement und einfache 
+Kommunikation 
+ 
+
+● Mighty Networks – Kombination aus Social Networking & Kursplattform 
+ 
+
+● Communi.com – Plattform für kollaboratives Lernen & Teilen 
+ 
+
+● Twitch, TikTok, X, LinkedIn – Sichtbarkeit & Reichweite durch Influencer 
+ 
+
+● Jobportale & Behördenportale – Schnittstellen für Bewerbungen & Fördermittel 
+ 
+
+ 
+
+7. Technische Besonderheiten 
+● DSGVO-konforme Schnittstellen zu Behörden & Sozialpartnern 
+
+ 
+● API für Jobportale und Datenübergabe 
+
+ 
+● Multi-User & Rollenkonzepte (Nutzer, Betreuer, Vormund, Institution) 
+
+ 
+● Stabile Video-/Chat-Integration für Beratungstermine 
+
+ 
+● Eventbasiertes Progress-Tracking (keine Scoreboards) 
+
+ 
+
+ 
+
+8. Zusammenfassung 
+Die Plattform Schuldenkompass ist eine sanfte, sozial integrierte digitale Lösung, die 
+Menschen mit Überschuldung eine neue Perspektive bietet: 
+ Nicht durch Druck, sondern durch Sichtbarkeit von Fortschritt, Stärkung der 
+Fähigkeiten, sozialer Unterstützung und nachweisbarer Stabilität. 
+
+Sie ist eng vernetzt mit staatlichen Förderungen und sozialen Institutionen, passt sich den 
+individuellen Einschränkungen der Nutzer an und bietet flexible Rollen- und Zugangsmodelle 
+– vom Betreuer bis zum Arbeitgeber.

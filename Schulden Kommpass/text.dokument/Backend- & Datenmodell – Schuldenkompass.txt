@@ -1,0 +1,298 @@
+﻿Backend- & Datenmodell – 
+Schuldenkompass 
+
+1. Architektur-Übersicht 
+Architekturtyp: 
+ Microservices-Architektur oder modulare monolithische Architektur, je nach 
+Entwicklungsressourcen. Fokus auf Skalierbarkeit und Erweiterbarkeit. 
+
+Technologie-Stack (Beispiel): 
+
+● Backend: Node.js (Express/Koa) oder Python (Django/Flask) 
+ 
+
+● API: RESTful oder GraphQL API 
+ 
+
+● Datenbank: Relationale DB (PostgreSQL) mit JSONB-Feldern für flexible Daten 
+ 
+
+● Authentifizierung: OAuth 2.0 / JWT 
+ 
+
+● Cloud-Hosting: AWS, Azure oder GCP 
+ 
+
+● Containerisierung: Docker + Kubernetes (optional) 
+ 
+
+● Monitoring & Logging: Prometheus, ELK-Stack 
+ 
+
+2. Hauptmodule & Services 
+Modul Aufgabe Schnittstellen / 
+
+APIs 
+
+Nutzer-Management Registrierung, Authentifizierung, /api/users, 
+Profilverwaltung /api/auth 
+
+Fähigkeiten & Profil Erfassen, Aktualisieren, Validieren von /api/skills 
+Nutzerfähigkeiten 
+
+Aufgabenmanagement Aufgaben erstellen, zuweisen, /api/tasks 
+Nachweise verwalten 
+
+Progress-Tracking Tracking der Fortschritte, /api/progress 
+Habit-Tracking 
+
+
+
+Beratung & Virtuelle Termine (Video/Chat), /api/appointments 
+Terminverwaltung Kalenderintegration 
+
+Zertifikate & Unlocks Verwalten von Belohnungen und /api/certificates 
+freigeschalteten Funktionen 
+
+Community & Feed, Kommentare, Likes, /api/community 
+Kommunikation Gamification 
+
+Institutionen-Dashboard Lesender Zugriff auf Fortschritte, /api/institutions 
+Reporting 
+
+Dokumentenmanagement Upload, Speicherung und Zugriff auf /api/documents 
+Nachweise (DSGVO) 
+
+Benachrichtigungssystem Push-Nachrichten, E-Mail-Notifications /api/notifications 
+
+API Gateway Einheitlicher Zugriffspunkt, /api 
+Authentifizierung 
+
+ 
+
+3. Datenbank-Schema (Tabellen & Beziehungen) 
+3.1 User (Nutzer) 
+
+Feld Typ Beschreibung 
+
+user_id (PK) UUID Eindeutige Nutzer-ID 
+
+name VARCHAR Vollständiger Name 
+
+email VARCHAR E-Mail-Adresse (unique) 
+
+password_has VARCHAR Gehashte Passwort 
+h 
+
+role ENUM Rollen: Nutzer, Berater, Admin 
+
+created_at TIMESTAMP Registrierungsdatum 
+
+updated_at TIMESTAMP Letzte Änderung 
+
+status ENUM aktiv, inaktiv, gesperrt 
+
+date_of_birth DATE Geburtsdatum 
+
+disabilities JSONB Informationen zu Einschränkungen 
+ 
+ 
+
+
+
+3.2 Skills (Fähigkeiten) 
+Feld Typ Beschreibung 
+
+skill_id (PK) UUID Eindeutige Skill-ID 
+
+user_id (FK) UUID Verweis auf User 
+
+category VARCHAR z.B. handwerklich, künstlerisch 
+
+description TEXT Detailbeschreibung der 
+Fähigkeit 
+
+verified BOOLEAN Ob Fähigkeit geprüft ist 
+
+created_at TIMESTAMP Erfassungsdatum 
+ 
+ 
+
+3.3 Tasks (Aufgaben) 
+Feld Typ Beschreibung 
+
+task_id (PK) UUID Eindeutige Task-ID 
+
+title VARCHAR Titel der Aufgabe 
+
+description TEXT Beschreibung 
+
+required_skill VARCHAR Erforderliche Fähigkeit 
+
+estimated_tim INT Geschätzte Dauer (Minuten) 
+e 
+
+created_by UUID (FK) Ersteller (Institution/Partner) 
+
+created_at TIMESTAMP Erstellungsdatum 
+
+active BOOLEAN Aktiv oder archiviert 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+3.4 Progress (Fortschritt) 
+Feld Typ Beschreibung 
+
+progress_id (PK) UUID Eindeutige ID 
+
+user_id (FK) UUID Nutzer 
+
+task_id (FK) UUID Zugewiesene Aufgabe 
+
+status ENUM ausstehend, in Arbeit, 
+erledigt 
+
+proof_document_id UUID (FK) Nachweis (Dokumente) 
+
+points_earned INT Punkte für Gamification 
+
+updated_at TIMESTAMP Letzter Update 
+ 
+ 
+
+3.5 Appointments (Beratungstermine) 
+Feld Typ Beschreibung 
+
+appointment_id (PK) UUID Eindeutige Termin-ID 
+
+user_id (FK) UUID Nutzer 
+
+advisor_id (FK) UUID Berater 
+
+start_time TIMESTAMP Beginn 
+
+end_time TIMESTAMP Ende 
+
+status ENUM geplant, durchgeführt, 
+abgesagt 
+
+video_link VARCHAR Link zum Video-Call 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+3.6 Certificates (Zertifikate & Unlocks) 
+Feld Typ Beschreibung 
+
+certificate_id (PK) UUID Eindeutige ID 
+
+user_id (FK) UUID Nutzer 
+
+title VARCHAR Name des Zertifikats 
+
+description TEXT Beschreibung 
+
+issued_date DATE Ausstellungsdatum 
+
+valid_until DATE Gültigkeitsdauer (optional) 
+ 
+
+3.7 Documents (Nachweise) 
+Feld Typ Beschreibung 
+
+document_id (PK) UUID Eindeutige Dokumenten-ID 
+
+user_id (FK) UUID Nutzer 
+
+file_path VARCHAR Speicherort im Filesystem 
+
+file_type VARCHAR z.B. pdf, jpg, png 
+
+uploaded_at TIMESTAMP Hochladedatum 
+
+description TEXT Optionaler Kommentar 
+ 
+ 
+
+4. Sicherheits- & Datenschutzmaßnahmen 
+● Verschlüsselte Datenübertragung: HTTPS / TLS 
+
+ 
+● Passwort-Hashing: z.B. bcrypt / Argon2 
+
+ 
+● Zugriffskontrollen: Rollenbasiertes Zugriffssystem (RBAC) 
+
+ 
+● DSGVO-Konformität: Einwilligungen, Datenminimierung, Löschkonzepte 
+
+ 
+● Audit-Logs: Protokollierung sensibler Aktionen 
+
+ 
+● Backups: Regelmäßige Backups mit Verschlüsselung 
+
+ 
+
+
+
+ 
+
+5. API-Beispiel (REST) 
+Registrierung 
+
+POST /api/users/register 
+ Payload: { name, email, password, date_of_birth, disabilities, 
+bank_proof } 
+
+Login 
+
+POST /api/auth/login 
+ Payload: { email, password } 
+
+Aufgaben abrufen 
+
+GET /api/tasks?user_id={id} 
+
+Fortschritt aktualisieren 
+
+POST /api/progress 
+ Payload: { user_id, task_id, status, proof_document_id, points_earned 
+} 
+
+Termin buchen 
+
+POST /api/appointments 
+ Payload: { user_id, advisor_id, start_time, end_time } 
+
+ 
+
+6. Skalierbarkeit & Erweiterbarkeit 
+● Microservices erlauben einfache Erweiterung (z.B. neues Modul für Selbstständige) 
+
+ 
+● Flexible Datenfelder (JSONB) ermöglichen Anpassungen ohne Migration 
+
+ 
+● API-first-Ansatz unterstützt zukünftige mobile Apps oder Partner-Integrationen

@@ -1,0 +1,185 @@
+﻿Product Requirements Document (PRD)
+1. Produktübersicht
+Produktname: Schuldenkompass
+Produktkategorie: Social Impact Plattform / Habit- & Progress-Tracking System
+Status: MVP-Definition
+
+Mission:
+Schuldenkompass ermöglicht Menschen mit Schulden einen würdevollen, belegbaren und nachhaltigen
+Weg aus der Überschuldung – nicht durch Druck, Sanktionen oder Inkasso, sondern durch Aktivierung
+von Fähigkeiten, gesellschaftlichen Beitrag und nachweisbaren Fortschritt.
+
+Das  Produkt  schafft  eine  vertrauenswürdige  Instanz  zwischen  Betroffenen,  sozialen  Einrichtungen,
+staatlichen Institutionen und digitalen Plattformen.
+
+2. Zielgruppen
+
+2.1 Primäre Zielgruppe
+
+• Überschuldete Personen mit stabiler Grundvoraussetzung
+• Fokus: 25–44 Jahre
+• Offen für:
+• Jugendliche (Übergang Schule → Ausbildung)
+• Senioren (krankheits- oder schicksalsbedingte Verschuldung)
+
+Voraussetzung: Bereitschaft zur aktiven Mitwirkung und Stabilisierung.
+
+2.2 Sekundäre Zielgruppen
+
+• Schuldnerberater & Sozialarbeiter
+(kommunal, kirchlich, frei)
+
+• NGOs & Wohlfahrtsverbände
+(Caritas, Diakonie, Deutsches Rotes Kreuz, AWO, Sozialverbände)
+
+• Staatliche Institutionen
+( Jobcenter, Agentur für Arbeit, Kommunen)
+
+• Plattform- & Wirtschaftspartner
+(Creator, Influencer, Unternehmen, Bildungsanbieter)
+
+1
+
+
+
+3. Kernprobleme
+
+3.1 Systemische Probleme
+
+• Schuldenhilfe ist überwiegend:
+• reaktiv
+• strafend
+• kurzfristig
+• Fokus liegt auf Forderungen, nicht auf Stabilisierung
+• Inkasso dominiert als Standardlösung
+
+3.2 Nutzerprobleme
+
+• Keine Sichtbarkeit von persönlichem Fortschritt
+• Gefühl von Kontrollverlust und Stigmatisierung
+• Fehlende Motivation durch Aussichtslosigkeit
+
+3.3 Institutionelle Probleme
+
+• Fehlende Verlaufsdaten
+• Keine belastbaren Fortschrittsindikatoren
+• Hoher Verwaltungsaufwand bei geringer Wirksamkeit
+
+4. Produktziele
+
+4.1 Für Betroffene
+
+• Wiederherstellung von Selbstwirksamkeit
+• Klare, erreichbare nächste Schritte
+• Sichtbarer Fortschritt unabhängig vom Schuldenstand
+
+4.2 Für Institutionen
+
+• Nachvollziehbare, belegbare Entwicklungsverläufe
+• Reduktion von Rückfällen
+• Ergänzung statt Ersatz bestehender Hilfesysteme
+
+4.3 Für Gesellschaft & Partner
+
+• Aktivierung ungenutzter Fähigkeiten
+• Prävention von sozialem Abstieg
+• Messbarer Social Impact
+
+5. Nicht-Ziele & Abgrenzung
+
+5.1 Klare Nicht-Ziele
+
+• ❌ Kein Inkasso
+• ❌ Keine Kreditvergabe
+
+2
+
+
+
+• ❌ Keine Schuldenbewertung
+• ❌ Keine automatisierten Sanktionen
+• ❌ Keine monetäre Drucklogik
+
+5.2 Hochrisikoprofile
+
+Personen mit  folgenden Profilen werden  nicht direkt aufgenommen: -  Aktive Suchterkrankungen -
+Glücksspielabhängigkeit - Vorsätzliche Betrugs- oder Straftatverschuldung
+
+Ausnahme:
+Nach  erfolgreichem  Durchlaufen  eines  vorbereitenden  Stabilisierungskurses  in  Kooperation  mit
+spezialisierten  Partnern (z.  B.  Anonyme  Alkoholiker,  Suchthilfezentren)  ist  eine  spätere  Teilnahme
+möglich.
+
+6. Kernfeatures (MVP)
+
+6.1 Nutzerprofil
+
+• Fähigkeiten & Fertigkeiten
+• Interessen & Beiträge
+• Stabilitätsstatus (nicht öffentlich)
+
+6.2 Progress- & Habit-Tracking
+
+• Teilnahme an Beratungen
+• Absolvierte Module & Aufgaben
+• Regelmäßigkeit & Verlässlichkeit
+
+6.3 Virtuelle Beratungstermine
+
+• Schuldnerberatung
+• Sozialberatung
+• Finanzkompetenz-Trainings
+
+6.4 Zertifikate & Unlocks
+
+• Kompetenz- und Stabilitätsnachweise
+• Freischaltung neuer Funktionen
+• Vertrauensmarker für Partner
+
+6.5 Matching-System
+
+• Nutzer ↔ Aufgaben
+• Nutzer ↔ Communities
+• Fähigkeiten ↔ Bedarf
+
+6.6 Institutionen-Dashboard
+
+• Read-only Zugriff
+• Verlauf & Teilnahme
+• Zertifikatsvalidierung
+
+3
+
+
+
+7. Erfolgsmetriken (MVP)
+• Aktivitätsquote nach 30 / 90 Tagen
+• Abbruch- vs. Stabilitätsrate
+• Anzahl abgeschlossener Module
+• Anzahl erfolgreicher Matches
+• Rückfallquote (nicht monetär)
+
+8. Risiken & Annahmen
+
+8.1 Risiken
+
+• Datenschutz & Vertrauen
+• Fehlinterpretation als Inkasso
+• Überforderung der Nutzer
+
+8.2 Annahmen
+
+• Fortschritt motiviert stärker als Druck
+• Institutionen akzeptieren alternative Indikatoren
+• Community-basierte Modelle erhöhen Verbindlichkeit
+
+9. MVP-Definition (Scope Cut)
+Enthalten: - Nutzer-Onboarding - Progress-Tracking - Virtuelle Termine - Zertifikate
+
+Nicht  enthalten  (Phase  2): -  Automatisierte  KI-Bewertung  -  Monetäre  Schuldenabwicklung  -
+Öffentliche Rankings
+
+Status: Dieses Dokument dient als verbindliche Grundlage für Design, Technik und Entwicklung des
+Schuldenkompass MVP.
+
+4

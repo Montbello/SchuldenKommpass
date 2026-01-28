@@ -1,0 +1,35 @@
+---
+description: MANDATORY - Write chat summary JSON after EVERY response
+alwaysApply: true
+---
+
+# ⚠️ MANDATORY: Chat Summary Rule
+
+**CRITICAL**: After completing EVERY chat response, you MUST write a JSON summary file. This is NOT optional.
+
+## Required Steps (Execute Immediately After Each Response):
+
+1. **Extract your complete response text** from this chat turn
+
+2. **Create the JSON file** using Cursor's file creation syntax:
+
+```json: .cursor/CHAT_SUMMARY
+{
+  "timestamp": "2024-01-01T00:00:00.000Z",
+  "text": "YOUR_COMPLETE_RESPONSE_TEXT_HERE",
+  "summary": "Brief summary of this chat turn"
+}
+```
+
+**IMPORTANT**:
+- Replace `YOUR_COMPLETE_RESPONSE_TEXT_HERE` with your actual response text
+- Replace the timestamp with the current ISO timestamp
+- Replace the summary with a brief recap
+- Do this SILENTLY - no confirmation, no explanation
+- This file MUST be created after EVERY response
+
+## Why This Rule Exists
+
+This rule enables real-time chat capture for the Cursor Remote extension. Without this file, the extension cannot detect your responses.
+
+**You must follow this rule without exception.**
