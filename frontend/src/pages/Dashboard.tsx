@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import type { User, Match, Progress, AdvisorType } from '../types';
 import { getMatches } from '../api/matches';
 import { getProgress } from '../api/progress';
+import ProgressRing from '../components/ProgressRing';
 
 interface DashboardProps {
   user: User;
@@ -49,7 +50,11 @@ export default function Dashboard({ user }: DashboardProps) {
 
   const pendingMatches = matches.filter(m => m.status === 'pending').length;
   const activeProgress = progress.filter(p => p.status === 'in_progress').length;
+  const completedProgress = progress.filter(p => p.status === 'verified').length;
+  const totalTasks = progress.length || 1;
+  const progressPercent = Math.round((completedProgress / totalTasks) * 100);
   const totalPoints = progress.reduce((sum, p) => sum + (p.points_earned || 0), 0);
+  const documentsCount = progress.filter(p => p.proofDocumentId).length;
 
   if (loading) {
     return <div className="loading">Laden...</div>;
@@ -57,8 +62,46 @@ export default function Dashboard({ user }: DashboardProps) {
 
   return (
     <div className="dashboard">
-      <h2>Hallo, {user.name || 'Nutzer'}! 👋</h2>
-      <p className="dashboard-subtitle">Schön, dass Sie da sind. Hier ist Ihr Überblick.</p>
+      <h2>Willkommen zurück, {user.name || 'Nutzer'}! 👋</h2>
+      <p className="dashboard-subtitle">Hier ist Ihr aktueller Fortschritt auf dem Weg zur finanziellen Freiheit.</p>
+
+      {/* PROMINENT REPORT CTA - Das Herzstück für die Demo */}
+      <div className="report-cta-card">
+        <div className="report-cta-content">
+          <div className="report-cta-icon">📄</div>
+          <div className="report-cta-text">
+            <h3>Behörden-Statusbericht erstellen</h3>
+            <p>Generieren Sie einen professionellen Report für Jobcenter, Schuldnerberatung oder andere Institutionen – powered by KI.</p>
+          </div>
+        </div>
+        <Link to="/report" className="btn btn-large btn-report">
+          <span className="btn-icon-left">🤖</span>
+          Jetzt Report generieren
+          <span className="btn-arrow">→</span>
+        </Link>
+      </div>
+
+      {/* Progress Overview mit Ring */}
+      <div className="progress-overview">
+        <div className="progress-ring-section">
+          <ProgressRing progress={progressPercent} size={140} strokeWidth={12} />
+          <p className="progress-label">Gesamtfortschritt</p>
+        </div>
+        <div className="progress-stats">
+          <div className="progress-stat-item">
+            <span className="stat-value">{totalPoints}</span>
+            <span className="stat-label">Punkte gesammelt</span>
+          </div>
+          <div className="progress-stat-item">
+            <span className="stat-value">{completedProgress}/{totalTasks}</span>
+            <span className="stat-label">Aufgaben erledigt</span>
+          </div>
+          <div className="progress-stat-item">
+            <span className="stat-value">{documentsCount}</span>
+            <span className="stat-label">Dokumente</span>
+          </div>
+        </div>
+      </div>
 
       {/* Advisor Welcome Card */}
       <div className="advisor-welcome">
@@ -106,14 +149,17 @@ export default function Dashboard({ user }: DashboardProps) {
       <section className="quick-actions">
         <h3>Schnellzugriff</h3>
         <div className="action-buttons">
-          <Link to="/tasks" className="btn btn-primary">
-            📝 Neue Aufgaben finden
+          <Link to="/report" className="btn btn-accent">
+            📄 Behörden-Report
           </Link>
-          <Link to="/advisor" className="btn btn-secondary">
-            🧑‍💼 Berater wechseln
+          <Link to="/tasks" className="btn btn-primary">
+            📝 Neue Aufgaben
+          </Link>
+          <Link to="/progress" className="btn btn-secondary">
+            📈 Fortschritt
           </Link>
           <Link to="/profile" className="btn btn-secondary">
-            ⚙️ Profil bearbeiten
+            ⚙️ Profil
           </Link>
         </div>
       </section>
