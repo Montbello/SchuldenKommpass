@@ -13,3 +13,5 @@ coverage/
 tmp/
 .DS_Store
 Thumbs.db
+
+backend/.env
