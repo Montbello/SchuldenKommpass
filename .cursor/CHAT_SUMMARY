@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-01-28T13:50:00.000Z",
+  "text": "PowerShell Schritt‑für‑Schritt (von 0) — SchuldenKompass lokal einrichten und testen:\n\n1) Voraussetzungen installieren (Windows)\n- Installiere Git: https://git-scm.com/\n- Installiere Node.js (LTS 18/20): https://nodejs.org/ (npm ist enthalten)\n- Installiere Docker Desktop (mit WSL2): https://docs.docker.com/desktop/windows/install/\n- Optional: VS Code für Editieren\n\n2) Repo klonen (oder in bestehenden Ordner wechseln)\nPS> git clone https://github.com/Montbello/SchuldenKommpass.git\nPS> Set-Location SchuldenKommpass
+
+3) Abhängigkeiten installieren (Root Monorepo)\nPS> npm install
+
+4) Backend: Umgebungsdatei anlegen + Secrets setzen\nPS> Copy-Item backend\\.env.example backend\\.env
+# Generiere ein sicheres Secret und schreibe es in die .env
+PS> $secret = [guid]::NewGuid().ToString()
+PS> (Get-Content backend\\.env) -replace 'JWT_SECRET=.*', 'JWT_SECRET=' + $secret | Set-Content backend\\.env -Encoding UTF8
+# Prüfe oder setze DATABASE_URL (Beispiel lokal):
+# DATABASE_URL=postgresql://postgres:postgres@localhost:5432/schuldenkompass
+
+5) Starten der lokalen Postgres (Docker Compose)
+PS> Set-Location backend
+PS> npm run db:up
+# Prüfen: docker compose -f docker-compose.yml ps
+
+6) Prisma: Client generieren, Migration und Seed
+PS (backend)> npm run prisma:generate
+PS (backend)> npm run prisma:migrate:dev
+PS (backend)> $env:ADMIN_PASS = 'adminpass' ; npm run prisma:seed
+
+7) Backend starten
+PS (backend)> npm run start
+# Erwartet: Konsolenausgabe: Server is running at http://localhost:3000
+
+8) Frontend starten
+PS> Set-Location ..\\frontend
+PS (frontend)> npm run dev
+# Vite öffnet typischerweise http://localhost:5173
+
+9) Testen: Registrierung und Dashboard prüfen
+- Browser: http://localhost:5173 → Register → Name/Email/Pass → Submit
+- Erwartet: Dashboard zeigt JSON mit User‑Daten
+- DevTools → Application → Local Storage: keys `sk_token` und `sk_user` prüfen
+- Optional: Adminer (http://localhost:8080) Database → Tabelle `User` prüfen
+
+10) Tests ausführen (Backend)
+PS> Set-Location ..\\backend
+PS (backend)> npm test
+# Unit‑Tests mocken @prisma/client; Integrationstests benötigen DB up + migrate + seed
+
+Troubleshooting Hinweise
+- Server beendet sich sofort: Prüfe `backend/.env` auf `JWT_SECRET` und `DATABASE_URL` (Fehlermeldung gibt Hinweis).\n- Dockerprobleme: Starte Docker Desktop, prüfe `docker compose ps` und Logs `docker compose logs db`\n- CORS / Netzwerk: Backend nutzt `cors()`; bei Problemen Browser DevTools → Network ansehen und Backend logs prüfen\n- Adminer: http://localhost:8080 Standardzugang: Benutzer=postgres Passwort=postgres DB=schuldenkompass (oder `schuldenkompass_dev` je nach docker-compose)
+\nKurzcheckliste (Schnell):\n- `git status` sauber, `npm install` ausgeführt\n- `backend/.env` vorhanden mit JWT_SECRET & DATABASE_URL\n- `docker compose -f backend/docker-compose.yml up -d` läuft\n- `npm run prisma:migrate:dev && npm run prisma:seed` erfolgreich\n- Backend `npm run start` aktiv, Frontend `npm run dev` erreichbar\n\nMöchtest du, dass ich diese Schritte als Issue mit Akzeptanzkriterien in `docs/issues/` erstelle?",
+  "summary": "Provided a complete PowerShell setup guide (Windows) from prerequisites to running backend + frontend, testing registration, and troubleshooting tips.",
+  "fix": "Resolved ETARGET by installing @vitest/coverage-v8@^1.0.4 into backend and re-running npm install. Install succeeded but npm reported engine warnings (Node v20.13.1 < required ^20.19.0); consider upgrading Node to avoid warnings."
+}\n\n**Ziel & Ansatz:** Die Plattform will überschuldeten Menschen durch Sichtbarkeit, Skill‑Matching und direkte Einkommensmöglichkeiten helfen (Content/Job/Training + Partnerschaften mit NGOs, Plattformen, Unternehmen). Der technische Ansatz ist Plattform‑/Matching‑basiert mit Schwerpunkt Pilot‑Projekte und skalierbarem Plattformmodell.\n\n**Stärken:**\n- Umfangreiche Partner‑Mapping‑Ideen (soziale Träger, Finanzberatung, Plattform‑Ökosystem).\n- Viele konkrete Kooperationskanäle (Social, Freelance, Bildung, Crowdfunding) und praktischer Fokus auf Pilot‑Projekte.\n- Realistisches Kapitel zu Skalierung, Umsatzquellen und möglichen Hürden — gute Basis für MVP‑Priorisierung.\n\n**Lücken & konkrete Empfehlungen:**\n- **MVP präziser definieren:** Formuliere 2–3 Kern‑User‑Flows (z.B. 1. Nutzer‑Registrierung + Profil, 2. Matching → Task/Job, 3. Nachweis/Progress & Auszahlung/Support). Lege minimal notwendige Endpunkte und DB‑Modelle fest (nutze `User`, `Task`, `Progress`, `Document` in `backend/prisma/schema.prisma`).\n- **Partner‑Integration & API‑Contracts:** Definiere klare Datenverträge (z. B. Partner liefert `userSkillProfile` / `jobOffer`), Auth/Rate‑limits, Fehlerfälle und Backfill‑Strategien; erstelle eine `docs/partner_api.md` mit Beispielen.\n- **Datenschutz & Rechtsfragen (DSGVO):** Erforderlich: Einwilligungs‑Flows, Datenminimierung, Ablauf zur Datenlöschung/Retention, Verschlüsselung sensibler Dateien (`Document.encrypted`). Dokumentiere dies in `docs/privacy.md`.\n- **Metriken & Erfolgskriterien:** Definiere KPIs (z. B. Anzahl Matches, Vermittelte Einkommen, Reduktion der Schuldenfälle) und Instrumente (Analytics/DB‑Events).\n- **Operations für Pilot:** Lege Seed‑Datensätze für Pilot‑Nutzer an (`prisma/seed.ts`), Pilotpartner‑Kontaktliste und Onboarding‑Checkliste.\n- **Technische Tasks:** Auth‑Middleware, Endpoints für Tasks/Progress, Tests (unit + integration), CI (Test + Lint + Build), und Monitoring/Logging.\n\n**Vorschlag: Konkrete nächste Schritte (priorisiert):**\n1. Erstelle ein `MVP.md` mit 3 User‑Flows und required API endpoints (short doc).\n2. Issue: „Define partner API & consent flow“ (inkl. `docs/partner_api.md`).\n3. Issue: „Add pilot seed data & example users“ (`backend/prisma/seed.ts`).\n4. Issue: „Add CI workflow (tests + lint)“ (GitHub Actions Vorlage).\n5. Issue: „Privacy checklist & encryption policy" (`docs/privacy.md`).\n\n**Willst du, dass ich aus diesen Punkten Issues erstelle und einen PR mit `MVP.md` + ersten Issues öffne?** Wenn ja: sag mir, ob ich mit dem `MVP.md` (Option A) oder direkt mit CI‑Vorlage (Option B) beginnen soll.",
+  "summary": "Gelesen: Konzeptzusammenfassung; Stärken, Lücken und priorisierte Umsetzungsschritte (MVP, APIs, Datenschutz, Pilot‑Seed, CI) vorgeschlagen."
+}

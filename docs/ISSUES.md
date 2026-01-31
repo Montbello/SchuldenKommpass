@@ -32,4 +32,25 @@ Labels: `testing`, `backend`
 
 ---
 
+## Phase 2: Institutions & CRM Integration
+
+8) Title: `Organisation & Partner Model erweitern`
+Description: Erweitere Prisma Schema um `Organisation`, `Contact`, `Interaction` Models. Basis für CRM und Partner-Integration. Siehe `docs/issues/8_organisation_partner_model.md`.
+Labels: `feature`, `backend`, `database`
+Priority: HIGH
+
+9) Title: `Arbeitsagentur & Behörden-Schnittstelle`
+Description: XÖV-konforme Exports, Maßnahmennachweis-Reports (PDF), AZAV-Dokumentation. Kritisch für Fördergelder. Siehe `docs/issues/9_arbeitsagentur_schnittstelle.md`.
+Labels: `feature`, `backend`, `compliance`, `B2G`
+Priority: HIGH
+Dependencies: #8
+
+10) Title: `CRM-Modul für Partner-Management`
+Description: CRUD für Organisationen, Kontakte, Interaktionen (Kommunikationshistorie). Dashboard-Endpunkt. Siehe `docs/issues/10_crm_modul.md`.
+Labels: `feature`, `backend`, `CRM`
+Priority: MEDIUM
+Dependencies: #8, #4
+
+---
+
 If you want, I can create these issues directly in GitHub and link them to the PR. Tell me which issues you'd like created automatically (all suggested or a subset).

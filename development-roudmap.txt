@@ -1,0 +1,191 @@
+development-roudmap 
+
+SchuldenKompass – Hackathon Roadmap (2 Tage, Gewinn-orientiert)
+🎯 Oberziel
+
+Best Project Overall + Best use of Gemini API
+(optional: Best use of LangChain)
+
+🧠 Bewertungs-Mapping (damit du weißt, warum wir das so machen)
+Kategorie	Gewicht	Was wir liefern
+Product Viability & Market	25 %	Jobcenter, AZAV, reales Problem
+Technical Innovation & AI	25 %	Gemini (Docs → Behördenreports)
+Execution & Demo	20 %	stabiler End-to-End-Flow
+UX & Design	15 %	ruhige, würdige GovTech-UX
+Presentation	15 %	klare Story, kein Buzzword-Pitch
+⏱️ DAY 1 – BUILD (Samstag)
+🕦 11:30–13:00 — Finale Entscheidung & Scope Lock
+
+NICHT MEHR DISKUTIEREN, nur festzurren:
+
+Scope (MVP Slice):
+
+Verschuldete Person beschreibt Situation
+
+Nachweise hochladen
+
+Progress wird getrackt
+
+Gemini erzeugt Behörden-Statusreport
+
+Zertifikat / Status sichtbar
+
+👉 Das ist die gesamte Demo-Story
+
+🕐 13:00–14:00 — Setup
+
+Pflicht laut Regeln:
+
+neues GitHub-Repo
+
+Commits ab jetzt
+
+API-Keys (Gemini!)
+
+Tech-Entscheidungen (final):
+
+Backend: Node + Prisma + Postgres (lokal ok)
+
+Frontend: React + Router
+
+AI:
+
+Gemini API (Pflicht)
+
+LangChain nur für Skill-Extraction
+
+🧩 14:00–18:00 — Core Feature bauen (Execution zählt!)
+1️⃣ Backend (du bist stark hier)
+
+/documents/upload
+
+/progress
+
+/reports/generate ⬅️ Gemini Hook
+
+einfacher User-Status
+
+👉 Kein Perfektionismus, nur:
+
+„User → Daten → AI → Output“
+
+2️⃣ Gemini Use Case (Hauptpreis!)
+
+Das MUSS sichtbar sein:
+
+Input: Story + Attest + Progress
+
+Output: klarer, sachlicher Behörden-Report
+
+„This is what a Jobcenter needs to make a decision.“
+
+🕕 18:00–23:00 — Frontend & UX
+
+Fokus nur auf 4 Screens:
+
+Onboarding / Story
+
+Upload Nachweise
+
+Progress View
+
+Behörden-Report View
+
+❌ Kein Login-Flow-Overkill
+❌ Keine Features ohne Demo-Wert
+
+🌅 DAY 2 – POLISH & PITCH (Sonntag)
+🕘 09:00–11:30 — Stabilisieren
+
+Demo 3× durchklicken
+
+Kein Feature mehr hinzufügen
+
+Logs, Errors abfangen
+
+Laut Regeln: Stability wins
+
+🕛 12:00 — STOP BUILDING
+
+Pflicht laut Bible.
+Jetzt nur noch:
+
+🎥 12:00–13:30 — Demo & Pitch vorbereiten
+🎬 2-Minuten-Demo (genau nach Vorgabe)
+
+Struktur (perfekt für Juroren):
+
+Problem (15s)
+„Millions are stuck in debt not because they don’t want to work — but because institutions can’t see their progress.“
+
+Live Demo (80s)
+
+User gibt Story ein
+
+Upload
+
+Klick: Generate Report
+
+Gemini Output erscheint
+
+Why it matters (15s)
+Jobcenter, NGOs, echte Entscheidungen
+
+Vision (10s)
+AZAV, Skalierung, Vertrauen
+
+📊 Miro Pitch Deck (5 Slides)
+
+Genau nach Bible, nichts erfinden:
+
+Marktproblem
+
+Lösung
+
+Geschäftsmodell (Gutscheine!)
+
+Go-to-Market (Jobcenter/NGOs)
+
+Why You / Why Now
+
+🏆 Sponsor-Strategie (wichtig!)
+🥇 Gemini (PRIORITÄT)
+
+Sag explizit:
+
+„Gemini is used to translate complex human situations into institution-ready language.“
+
+➡️ Das ist Best use of Gemini API.
+
+🥈 LangChain (optional)
+
+Nur zeigen, wenn:
+
+Story → Skills → Task
+
+ein Flow, kein Agent-Zoo
+
+❌ Was du NICHT tun solltest
+
+Keine 5 AI-APIs
+
+Keine Voice-Demos
+
+Kein Fake-Business
+
+Kein „wir könnten später…“
+
+🧠 Ein Satz, der dir Punkte bringt
+
+“Most hackathon projects generate content.
+SchuldenKompass generates trust — between people in crisis and public institutions.”
+
+🔥 Wenn du willst, als Nächstes:
+
+🎤 wortgenauen 2-Min-Pitch
+
+🧠 Gemini Prompt für Behördenreport
+
+📐 Demo-Flow als Click-Script
+
+🧩 LangChain Minimal-Chain

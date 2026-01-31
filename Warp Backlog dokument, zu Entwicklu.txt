@@ -1,0 +1,260 @@
+Warp Backlog dokument, zu Entwicklung von back end 
+
+Wenn du wirklich von Node.js weg musst (z.B. für rechenintensive Matching-Algorithmen):
+nien ich muss nich von node.js weg ich wollte ein skalierung weg finden.
+
+•  Go für performante Microservices Matching-Engine
+können wir got torzdem nutze und an node .js andocken 
+
+•  Python für ML/KI-Features (Risikobewertung, Betrugserkennung)
+Das ist klar und wir werden es auch erstellen, die inizierung von schulden Kompass fängt mit der Dokumentierung alle Dokumente in das CRM System, bedeutet, der Schuldner scannt alle Dokumente die mit sein schulden zu tun hat, ein packt sie in die PDF rein, und ladet sie hoch, das hochladen, oder der loggin geht nur mit einem code was sie von der Agentur für arbeite bekommen, und mit dem Bildungs Gutschein  ausgehändigt werde, über den Loggin und die Eingabe de code löst er den Buildungs Gutschein ein.
+
+das bedeute wir benutzten die ai, um alle wichtigen Parametern von denn Dokumente zu extrahieren, die in ein sheet rein zu packen um sie dann ich CRM eine plfege zu können. 
+
+das ist 1 teil der Meta daten, denn der andere teil kommt von andere Instanzen.
+Instanz 2 ist die Agentur für Arbeit, und deren geführte Akte.  
+Instanz 3, die geförderte Person selber, wie bauen eine frage Katalog auf der denn ist zustand von der Person erfasst.
+dieser frag katalog muss und sollte dynamisch generiert werden basierend auf die vorherige frage.  
+bedeute es gibt eine inszierung fragen, darus resultierende verschieden mögliche Alternativ fragen.
+also sagen wir mal. die inzierung frage ist:
+
+ was ist deiner Meinung nach der Hauptgrund warum du in den schulden geraten bist:
+
+da gib es x varianten warum, aus diesen X wird y formulieret, um dan auf Z zukommen. 
+Z ist das endergebenis der meta daten profil (ist zustand der persone auf 3 ebene : Geistig, Körperlich, seelisch )
+
+2. Anforderungen für Arbeitsagentur & Institutionen
+
+Für B2G (Business-to-Government) Zusammenarbeit brauchst du:
+
+Compliance & Zertifizierungen
+•  DSGVO-konform (bereits wichtig)
+
+Sehr gute und extrem wichtige Frage.
+Ich antworte dir strukturiert, praxisnah und so, dass du es 1:1 ins Backend/CRM übersetzen kannst – nicht juristisch-abstrakt, sondern implementierbar.
+Ich gliedere das in Pflichten → konkrete Backend-Mechaniken → CRM-Implikationen.
+
+🛡️ DSGVO-Compliance für SchuldenKompass
+(Backend & CRM – technisch umsetzbar)
+SchuldenKompass verarbeitet hoch­sensible Daten:
+	• finanzielle Daten
+	• Gesundheits-/Attestdaten
+	• Sozial- & Förderstatus
+	• behördliche Interaktionen
+→ hohes Risiko → DSGVO Art. 9 + DPIA-Pflicht
+
+1️⃣ Rollen & Verantwortlichkeiten (Grundlage)
+1.1 Datenschutzrechtliche Rollen
+Du musst technisch abbilden, wer was ist:
+	• Verantwortlicher (Controller)
+→ SchuldenKompass (UG/GmbH)
+	• Auftragsverarbeiter (Processor)
+→ Hosting (AWS/Azure), Storage, E-Mail, Video, etc.
+	• Dritte Empfänger
+→ Jobcenter, Agentur für Arbeit, NGOs (read-only, selektiv)
+➡️ Backend-Implikation
+→ Jede Datenabfrage braucht:
+	• requested_by_role
+	• purpose
+	• legal_basis
+
+2️⃣ Rechtsgrundlagen (Art. 6 & 9 DSGVO)
+2.1 Erlaubte Rechtsgrundlagen (bei euch)
+Zweck	Rechtsgrundlage
+Plattformbetrieb	Art. 6(1)(b) Vertrag
+Förderabwicklung	Art. 6(1)(c) rechtl. Verpflichtung
+Atteste / Gesundheit	Art. 9(2)(a) explizite Einwilligung
+Reporting an Behörden	Art. 6(1)(e) öffentliches Interesse
+Analytics intern	Art. 6(1)(f) berechtigtes Interesse (minimiert)
+➡️ Backend-Pflicht
+JEDER Datensatz braucht:
+legal_basis: 'contract' | 'consent' | 'legal_obligation' | 'public_interest'
+
+3️⃣ Consent-Management (EXTREM WICHTIG)
+3.1 Explizite, granulare Einwilligungen
+Nicht „alles akzeptieren“.
+Separate Consents für:
+	• Plattformbetrieb
+	• Dokument-Upload
+	• Atteste
+	• Banknachweise
+	• Weitergabe an Institutionen
+	• Social-Media-Sichtbarkeit (Influencer)
+➡️ Backend-Modell
+Consent {
+  id
+  user_id
+  scope: 'health' | 'finance' | 'institution_share' | 'social_visibility'
+  granted_at
+  revoked_at?
+  version
+}
+➡️ Regel
+	• Kein Zugriff auf Daten ohne gültigen Consent
+	• Revocation wirkt sofort
+
+4️⃣ Datensparsamkeit & Zweckbindung (Art. 5)
+4.1 Minimalprinzip
+Du darfst nicht speichern, nur weil es „vielleicht nützlich“ ist.
+Beispiele:
+	• ❌ exakte Schuldenhöhe dauerhaft speichern
+	• ✅ Schulden-Kategorie / Belastungsgrad
+	• ❌ vollständige Kontoauszüge
+(das erhebt die Agentur für Arbeit und das Jobcenter von alleine)
+bedeute wir bräuchten nur eine richtig definierte DSGVO comofrome abruf api zu Jobpota agntur/für arbeit 
+	• ✅ Bankbestätigung als PDF mit Retention-Timer
+➡️ Backend-Regel
+	• Pflichtfeld purpose
+	• Zugriff nur, wenn purpose === request.purpose
+
+5️⃣ Aufbewahrungsfristen (Retention)
+
+5.1 Pflicht-Retention pro Datentyp
+Datentyp	Aufbewahrung
+Profildaten	Vertragsdauer + 12 Monate
+Atteste	max. 12 Monate
+Banknachweise	max. 6–12 Monate
+Progress & Zertifikate	5–10 Jahre (AZAV-Nachweis!)
+Logs	6–24 Monate
+Consent-Logs	10 Jahre (Beweislast)
+➡️ Backend-Modell
+retention_until: Date
+➡️ Automatisierter Job
+	• nightly cleanup
+	• irreversible Löschung
+	• Audit-Log bleibt anonymisiert
+
+6️⃣ Rechte der Betroffenen (Art. 12–22)
+6.1 Technisch MUSS möglich sein:
+	• Auskunft (Art. 15)
+	• Berichtigung (Art. 16)
+	• Löschung (Art. 17)
+	• Einschränkung (Art. 18)
+	• Datenübertragbarkeit (Art. 20)
+➡️ Backend-Endpoints
+GET  /privacy/export
+POST /privacy/delete
+POST /privacy/restrict
+➡️ CRM
+	• Ticket „DSGVO-Request“
+	• SLA-Timer (30 Tage!)
+
+7️⃣ Zugriffskontrolle & Rollen (Art. 32)
+7.1 Rollenmodell (RBAC + ABAC)
+Rolle	Zugriff
+User	eigene Daten
+Berater	Progress, keine Rohdaten
+Institution	Status + Zertifikate, keine Atteste
+Admin	technisch, aber protokolliert
+➡️ Feld-Level-Security
+if (role === 'institution') {
+  exclude: ['bank_data', 'health_documents']
+}
+
+8️⃣ Verschlüsselung & Sicherheit
+8.1 Pflichtmaßnahmen
+	• TLS überall
+	• Verschlüsselung at rest
+	• Hashing sensibler IDs
+	• Kein Klartext in Logs
+➡️ Dokumente
+	• getrenntes Storage
+	• Zugriff nur via Signed URLs
+	• Zeitlich begrenzt
+
+9️⃣ Audit-Logging (Beweisfähigkeit!)
+9.1 Loggen MUSS:
+	• Datenzugriffe
+	• Statusänderungen
+	• Zertifikatsausstellung
+	• Consent-Änderungen
+	• Institutionelle Abfragen
+➡️ Audit-Schema
+AuditLog {
+  actor_id
+  actor_role
+  action
+  target
+  timestamp
+  legal_basis
+}
+
+🔟 DPIA (Datenschutz-Folgenabschätzung)
+10.1 Pflicht, weil:
+	• vulnerable Personen
+	• Gesundheitsdaten
+	• staatliche Stellen
+	• automatisierte Profile
+➡️ Backend-Support
+	• Risiko-Flags
+	• Human-in-the-loop
+	• kein automatisches Entscheiden über Förderfähigkeit
+
+11️⃣ CRM-Spezifische DSGVO-Pflichten
+11.1 CRM darf NICHT:
+	• Notizen ohne Zweck speichern
+	• Freitext über Gesundheit ohne Consent
+	• Daten „zur Sicherheit“ kopieren
+11.2 CRM MUSS:
+	• Zweck anzeigen
+	• Zugriff protokollieren
+	• Daten aus Frontend übernehmen, nicht duplizieren
+
+🔐 Zusammenfassung als Backend-Checkliste
+MUSS implementiert sein:
+	• Consent-Service (granular)
+	• Retention-Engine
+	• Audit-Logging
+	• Rollen- & Feld-Zugriff
+	• DSGVO-Export/Lösch-APIs
+	• DPIA-Ready Architektur
+	• Institutionen-Views (Read-only)
+
+💡 Wichtig für Investoren & Behörden
+Wenn du das so umsetzt, kannst du ehrlich sagen:
+	„Unsere Plattform ist privacy-by-design,
+	auditierbar, AZAV-fähig und DSGVO-konform.“
+Das ist sehr selten im Sozial- & GovTech-Bereich.
+
+Wenn du willst, mache ich dir als Nächstes:
+	• 📄 Prisma-Schema mit DSGVO-Feldern
+	• 🧾 DPIA-Vorlage speziell für SchuldenKompass
+	• 🔐 RBAC-Policy als Code
+	• 🧠 Consent-Service-Design
+Sag mir einfach, was wir jetzt konkret bauen.
+
+Aus <https://chatgpt.com/g/g-p-69454ca93eb48191aa132a9d7eee18b3-how-to-get-fast-out-off-deeps/c/065d95cc-ec7c-8325-a4e2-db19d42e3e4d> 
+
+•  BSI IT-Grundschutz oder ISO 27001
+•  AZAV-Zertifizierung – um als Maßnahmenträger anerkannt zu werden
+•  Barrierefreiheit (BITV 2.0)
+
+Technische Schnittstellen
+•  XÖV-Standards – XML-basierte Datenaustauschformate für Behörden
+•  ELSTER-Schnittstelle – falls Finanzdaten relevant
+•  Audit-Logging – vollständige Nachvollziehbarkeit aller Aktionen
+
+Dokumentation
+•  Teilnehmer-Fortschrittsberichte (PDF-Export)
+•  Statistiken für Fördermittelnachweis
+•  Vertragsmanagement für Kooperationen
+
+3. CRM-Anbindung
+
+Zwei Optionen:
+
+Option A: Bestehende CRM-Lösung integrieren
+•  HubSpot (gute kostenlose Tier, starke API)
+•  Salesforce Nonprofit Cloud (speziell für gemeinnützige Organisationen)
+•  odoo (Open Source, selbst gehostet möglich)
+
+Option B: Eigenes CRM-Modul bauen
+Deine aktuelle Architektur hat bereits:
+•  User-Management
+•  Matching-System  
+•  Progress-Tracking
+
+Du brauchst zusätzlich:
+Meine Empfehlung: Starte mit HubSpot oder Salesforce Nonprofit über API-Integration, da du schnell mit Institutionen arbeiten willst. Später kannst du migrieren.
+
+Soll ich einen konkreten Architektur-Vorschlag oder ein Modul-Design für die Institutions-/CRM-Integration erstellen?
