@@ -6,7 +6,7 @@ interface ReportPageProps {
   user: User;
 }
 
-export default function ReportPage({ user }: ReportPageProps) {
+export default function ReportPage({ user: _user }: ReportPageProps) {
   const [userStory, setUserStory] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');

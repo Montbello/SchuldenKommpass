@@ -4,7 +4,7 @@ import { handleApiResponse } from './client';
 
 const API_BASE = '/api';
 
-async function authFetch(url: string, options: RequestInit = {}) {
+async function authFetch<T>(url: string, options: RequestInit = {}): Promise<T> {
   const csrfToken = getCsrfToken();
   const res = await fetch(url, {
     ...options,
@@ -15,7 +15,7 @@ async function authFetch(url: string, options: RequestInit = {}) {
       ...options.headers,
     },
   });
-  return handleApiResponse(res);
+  return handleApiResponse<T>(res);
 }
 
 // Get user's matches
