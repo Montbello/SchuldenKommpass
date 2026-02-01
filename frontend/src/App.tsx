@@ -26,6 +26,7 @@ import OnboardingWizard from './pages/Onboarding/OnboardingWizard';
 import AppointmentCalendar from './pages/Appointments/AppointmentCalendar';
 import CertificateOverview from './pages/Certificates/CertificateOverview';
 import InstitutionDashboard from './pages/InstitutionDashboard/InstitutionDashboard';
+import UIShowcase from './pages/UIShowcase';
 
 function AppRoutes() {
   const [user, setUser] = useState<User | null>(getUser());
@@ -85,6 +86,7 @@ function AppRoutes() {
         <Route path="/datenschutz" element={<DatenschutzPage />} />
         <Route path="/agb" element={<AGBPage />} />
         <Route path="/kontakt" element={<KontaktPage />} />
+        <Route path="/ui-showcase" element={<UIShowcase />} />
         
         {/* Landing page for non-logged-in users */}
         <Route
