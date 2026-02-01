@@ -1,0 +1,195 @@
+/* FloatingLabelInput - Modern animated input fields */
+
+.floating-input-wrapper {
+  position: relative;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.floating-input-wrapper.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.input-icon {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+  margin-top: 1rem;
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+.floating-input-wrapper:focus-within .input-icon {
+  color: var(--primary);
+}
+
+.floating-input-container {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.floating-input {
+  width: 100%;
+  padding: 1.25rem 0.75rem 0.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: white;
+  transition: all 0.3s ease;
+  outline: none;
+  color: var(--text);
+}
+
+.floating-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.floating-input:disabled {
+  background: var(--bg);
+  cursor: not-allowed;
+}
+
+.floating-label {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: white;
+  padding: 0 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 1.5rem);
+}
+
+.floating-label.active {
+  top: 0;
+  font-size: 0.75rem;
+  color: var(--primary);
+  transform: translateY(0);
+}
+
+.floating-input:focus ~ .floating-label {
+  color: var(--primary);
+}
+
+.required-mark {
+  color: var(--danger);
+  margin-left: 0.125rem;
+}
+
+.input-border {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: 1px;
+}
+
+.input-border.focused {
+  width: 100%;
+}
+
+/* Error State */
+.floating-input-wrapper.has-error .floating-input {
+  border-color: var(--danger);
+}
+
+.floating-input-wrapper.has-error .floating-input:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.floating-input-wrapper.has-error .floating-label.active,
+.floating-input-wrapper.has-error .floating-input:focus ~ .floating-label {
+  color: var(--danger);
+}
+
+.floating-input-wrapper.has-error .input-icon {
+  color: var(--danger);
+}
+
+.input-error {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--danger);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  animation: shake 0.3s ease, fadeIn 0.2s ease;
+  width: 100%;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* Focus visible for accessibility */
+.floating-input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Autofill styling */
+.floating-input:-webkit-autofill,
+.floating-input:-webkit-autofill:hover,
+.floating-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .floating-label,
+  .floating-input,
+  .input-border,
+  .input-error,
+  .floating-input-wrapper {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .floating-input {
+    background: var(--card-bg);
+    color: var(--text);
+  }
+  
+  .floating-label {
+    background: var(--card-bg);
+  }
+}

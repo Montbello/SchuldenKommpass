@@ -9,7 +9,6 @@ interface DocumentUploadProps {
   existingDocument?: { document_id: string; uploaded_at: string } | null;
 }
 
-const MAX_FILE_SIZE_DEFAULT = 5 * 1024 * 1024; // 5MB
 const ACCEPTED_DEFAULT = '.pdf,.jpg,.jpeg,.png';
 
 export default function DocumentUpload({
