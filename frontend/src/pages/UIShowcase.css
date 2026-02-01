@@ -272,3 +272,34 @@
     transform: none;
   }
 }
+
+/* Form Demo Styles */
+.demo-form {
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+.form-row {
+  margin-bottom: 1.5rem;
+}
+
+.demo-form .enhanced-btn {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* Toast Demo Grid */
+.toast-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Modal Demo Grid */
+.modal-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
