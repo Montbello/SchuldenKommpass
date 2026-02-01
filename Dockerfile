@@ -10,12 +10,15 @@ RUN npm run build
 FROM node:20-alpine AS backend-builder
 WORKDIR /app
 
-# Copy common package (workspace dependency)
-COPY common ./common
+# Copy common package first (workspace dependency)
+COPY common /app/common
 
 # Copy backend files
+WORKDIR /app/backend
 COPY backend/package*.json ./
-RUN npm ci
+
+# Install with legacy-peer-deps to handle workspace dependency
+RUN npm ci --legacy-peer-deps || npm install --legacy-peer-deps
 
 COPY backend/prisma ./prisma/
 RUN npx prisma generate
@@ -28,11 +31,14 @@ RUN npm run build
 FROM node:20-alpine AS production
 WORKDIR /app
 
+# Copy common (needed at runtime for types)
+COPY --from=backend-builder /app/common ./common
+
 # Copy backend
-COPY --from=backend-builder /app/node_modules ./node_modules
-COPY --from=backend-builder /app/dist ./dist
-COPY --from=backend-builder /app/prisma ./prisma
-COPY --from=backend-builder /app/package*.json ./
+COPY --from=backend-builder /app/backend/node_modules ./node_modules
+COPY --from=backend-builder /app/backend/dist ./dist
+COPY --from=backend-builder /app/backend/prisma ./prisma
+COPY --from=backend-builder /app/backend/package*.json ./
 
 # Copy frontend build
 COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
