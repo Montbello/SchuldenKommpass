@@ -14,7 +14,7 @@ export interface User {
   user_id: string;
   email: string;
   name?: string;
-  role: 'USER' | 'ADVISOR' | 'ADMIN';
+  role: 'USER' | 'ADVISOR' | 'ADMIN' | 'INSTITUTION';
   status: 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';
   date_of_birth?: string;
   disabilities?: Record<string, unknown>;
