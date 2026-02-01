@@ -11,12 +11,30 @@ enum UserRole {
   USER
   ADVISOR
   ADMIN
+  INSTITUTION
 }
 
 enum UserStatus {
   ACTIVE
   INACTIVE
   SUSPENDED
+}
+
+enum OnboardingStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  PENDING_REVIEW
+  APPROVED
+  REJECTED
+}
+
+enum DocumentCategory {
+  PROOF_MEDICAL
+  PROOF_FINANCIAL
+  PROOF_IDENTITY
+  PROOF_OTHER
+  TASK_PROOF
+  GENERAL
 }
 
 enum OrgType {
@@ -44,7 +62,24 @@ model User {
   status       UserStatus @default(ACTIVE)
   date_of_birth DateTime?
   disabilities Json?
+  
+  // Onboarding & Consent
+  onboarding_status OnboardingStatus @default(NOT_STARTED)
+  stability_score   Float?           @default(0.0)
+  referred_by       String?          // NGO/Jobcenter/Partner-ID
+  user_story        String?          @db.Text
   consent_data_sharing Boolean @default(false)
+  consent_data_processing Boolean @default(false)
+  consent_partner_sharing Boolean @default(false)
+  
+  // Gamification & Unlocks
+  level             Int      @default(1)
+  total_points      Int      @default(0)
+  unlocked_features Json?    // Array of feature keys
+  
+  // Institution Assignment (für Read-Only Zugriff)
+  institution_id    String?
+  
   created_at   DateTime   @default(now())
   updated_at   DateTime   @updatedAt
 
@@ -58,6 +93,11 @@ model User {
   matches      Match[]       @relation("UserMatches")
   interactions Interaction[] // CRM: vom User erfasste Interaktionen
   reports      Report[]      // Vom User generierte Reports
+
+  @@index([institution_id])
+  @@index([onboarding_status])
+  @@index([role])
+  @@index([email])
 }
 
 model Skill {
@@ -68,6 +108,9 @@ model Skill {
   description String?
   verified    Boolean  @default(false)
   created_at  DateTime @default(now())
+
+  @@index([userId])
+  @@index([category])
 }
 
 model Task {
@@ -84,6 +127,10 @@ model Task {
   active         Boolean       @default(true)
   progresses     Progress[]
   matches        Match[]
+
+  @@index([organisationId])
+  @@index([active])
+  @@index([required_skill])
 }
 
 model Progress {
@@ -97,6 +144,10 @@ model Progress {
   proofDocumentId  String?
   points_earned    Int?     @default(0)
   updated_at       DateTime @updatedAt
+
+  @@index([userId, status])
+  @@index([taskId])
+  @@index([updated_at])
 }
 
 model Appointment {
@@ -109,6 +160,11 @@ model Appointment {
   end_time       DateTime
   status         String
   video_link     String?
+
+  @@index([userId])
+  @@index([advisorId])
+  @@index([start_time])
+  @@index([status])
 }
 
 model Certificate {
@@ -121,6 +177,9 @@ model Certificate {
   valid_until    DateTime?
   signed_token   String?
   issued_by      String?
+
+  @@index([userId])
+  @@index([issued_date])
 }
 
 model Document {
@@ -135,7 +194,18 @@ model Document {
   retention_expiry DateTime?
   uploaded_at   DateTime @default(now())
   description   String?
+  
+  // Onboarding & Categorization
+  document_category DocumentCategory @default(GENERAL)
+  verification_status String? // PENDING, VERIFIED, REJECTED
+  verified_by       String? // User ID of verifier
+  verified_at       DateTime?
+  
   progresses    Progress[]
+
+  @@index([userId])
+  @@index([document_category])
+  @@index([verification_status])
 }
 
 model Match {
@@ -147,6 +217,10 @@ model Match {
   score      Float
   assigned_at DateTime @default(now())
   status     String
+
+  @@index([userId])
+  @@index([taskId])
+  @@index([status])
 }
 
 model AuditEvent {
@@ -171,8 +245,10 @@ model Organisation {
   contact_email  String?
   contact_phone  String?
   website        String?
-  api_token_hash String?   // für Partner-API Auth
+  api_token_hash String?   // für Partner-API Auth (hashed)
   webhook_url    String?   // für Callbacks
+  webhook_secret String?   // HMAC secret für Webhook-Validierung
+  rate_limit_per_hour Int? @default(100) // API Rate Limit
   active         Boolean   @default(true)
   created_at     DateTime  @default(now())
   updated_at     DateTime  @updatedAt

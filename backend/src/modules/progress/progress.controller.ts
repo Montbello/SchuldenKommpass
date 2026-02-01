@@ -163,11 +163,22 @@ export const progressController = {
       const fileBuffer = fs.readFileSync(file.path);
       const fileHash = progressService.generateFileHash(fileBuffer);
 
+      // Parse document category from body (default: GENERAL)
+      const category = req.body.document_category || 'GENERAL';
+      const validCategories = ['PROOF_MEDICAL', 'PROOF_FINANCIAL', 'PROOF_IDENTITY', 'PROOF_OTHER', 'TASK_PROOF', 'GENERAL'];
+      
+      if (!validCategories.includes(category)) {
+        fs.unlinkSync(file.path);
+        res.status(400).json({ message: 'Invalid document category' });
+        return;
+      }
+
       const document = await progressService.createDocument(userId, {
         file_path: file.path,
         file_type: file.mimetype,
         description: req.body.description,
         file_hash: fileHash,
+        document_category: category,
       });
 
       res.status(201).json(document);

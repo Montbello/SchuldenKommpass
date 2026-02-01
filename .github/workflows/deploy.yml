@@ -1,0 +1,21 @@
+name: Deploy
+
+# Deployment is handled by:
+# - Railway (Backend) - auto-deploys on push
+# - Vercel (Frontend) - auto-deploys on push
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  notify:
+    name: Deployment Notification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deployment Info
+        run: |
+          echo "🚀 Deployment triggered!"
+          echo "Backend: Railway auto-deploys from this push"
+          echo "Frontend: Vercel auto-deploys from this push"

@@ -1,6 +1,6 @@
-import { handleApiResponse } from './client';
+import { handleApiResponse, API_BASE } from './client';
 
-const API_BASE = '/api/onboarding';
+const ONBOARDING_BASE = `${API_BASE}/api/onboarding`;
 
 export interface OnboardingStatus {
   user: {
@@ -63,7 +63,7 @@ export interface StepResult {
 
 // Start onboarding
 export async function startOnboarding(email: string, invitationToken?: string, referredBy?: string) {
-  const res = await fetch(`${API_BASE}/start`, {
+  const res = await fetch(`${ONBOARDING_BASE}/start`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -74,7 +74,7 @@ export async function startOnboarding(email: string, invitationToken?: string, r
 
 // Get current onboarding status
 export async function getOnboardingStatus(userId: string): Promise<OnboardingStatus> {
-  const res = await fetch(`${API_BASE}/status/${userId}`, {
+  const res = await fetch(`${ONBOARDING_BASE}/status/${userId}`, {
     method: 'GET',
     credentials: 'include',
   });
@@ -83,7 +83,7 @@ export async function getOnboardingStatus(userId: string): Promise<OnboardingSta
 
 // Process basic data step (Step 1)
 export async function processBasicData(userId: string, data: OnboardingBasicData): Promise<StepResult> {
-  const res = await fetch(`${API_BASE}/step/basic`, {
+  const res = await fetch(`${ONBOARDING_BASE}/step/basic`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -94,7 +94,7 @@ export async function processBasicData(userId: string, data: OnboardingBasicData
 
 // Process documents step (Step 2) - documents uploaded separately
 export async function processDocumentsStep(userId: string): Promise<StepResult> {
-  const res = await fetch(`${API_BASE}/step/documents`, {
+  const res = await fetch(`${ONBOARDING_BASE}/step/documents`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -105,7 +105,7 @@ export async function processDocumentsStep(userId: string): Promise<StepResult> 
 
 // Process skills step (Step 3)
 export async function processSkillsStep(userId: string, data: OnboardingSkillsData): Promise<StepResult> {
-  const res = await fetch(`${API_BASE}/step/skills`, {
+  const res = await fetch(`${ONBOARDING_BASE}/step/skills`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -116,7 +116,7 @@ export async function processSkillsStep(userId: string, data: OnboardingSkillsDa
 
 // Process story step (Step 4 - Final)
 export async function processStoryStep(userId: string, data: OnboardingStoryData): Promise<StepResult> {
-  const res = await fetch(`${API_BASE}/step/story`, {
+  const res = await fetch(`${ONBOARDING_BASE}/step/story`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',

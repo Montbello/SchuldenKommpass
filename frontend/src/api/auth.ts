@@ -1,4 +1,4 @@
-import { handleApiResponse } from './client';
+import { handleApiResponse, API_BASE } from './client';
 
 export type User = {
   user_id: string;
@@ -10,7 +10,7 @@ export type User = {
 
 
 export async function logout() {
-  const res = await fetch('/api/auth/logout', {
+  const res = await fetch(`${API_BASE}/api/auth/logout`, {
     method: 'POST',
     credentials: 'include',
   });
@@ -18,7 +18,7 @@ export async function logout() {
 }
 
 export async function register(data: { name: string; email: string; password: string }) {
-  const res = await fetch('/api/auth/register', {
+  const res = await fetch(`${API_BASE}/api/auth/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -27,7 +27,7 @@ export async function register(data: { name: string; email: string; password: st
   return handleApiResponse(res) as Promise<{ user: User }>;
 }
 export async function getMe() {
-  const res = await fetch('/api/auth/me', {
+  const res = await fetch(`${API_BASE}/api/auth/me`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -35,7 +35,7 @@ export async function getMe() {
   return handleApiResponse(res) as Promise<{ user: User }>;
 }
 export async function login(data: { email: string; password: string }) {
-  const res = await fetch('/api/auth/login', {
+  const res = await fetch(`${API_BASE}/api/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',

@@ -1,8 +1,12 @@
 [build]
-builder = "DOCKERFILE"
-dockerfilePath = "./Dockerfile"
+builder = "NIXPACKS"
+
+[build.nixpacks]
+install_command = "cd backend && npm ci"
+build_command = "cd backend && npx prisma generate && npm run build"
 
 [deploy]
+startCommand = "cd backend && npx prisma migrate deploy && npm start"
 healthcheckPath = "/health"
 healthcheckTimeout = 30
 restartPolicyType = "ON_FAILURE"

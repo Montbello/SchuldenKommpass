@@ -1,4 +1,4 @@
-import { handleApiResponse } from './client';
+import { handleApiResponse, API_BASE } from './client';
 import { getCsrfToken } from '../utils/auth';
 
 export interface GeneratedReport {
@@ -27,7 +27,7 @@ export interface GenerateReportInput {
 
 export async function generateReport(data: GenerateReportInput): Promise<{ report: Report }> {
   const csrfToken = getCsrfToken();
-  const res = await fetch('/api/reports/generate', {
+  const res = await fetch(`${API_BASE}/api/reports/generate`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export async function generateReport(data: GenerateReportInput): Promise<{ repor
 }
 
 export async function getReports(): Promise<{ reports: Report[] }> {
-  const res = await fetch('/api/reports', {
+  const res = await fetch(`${API_BASE}/api/reports`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -49,7 +49,7 @@ export async function getReports(): Promise<{ reports: Report[] }> {
 }
 
 export async function getReportById(id: string): Promise<{ report: Report }> {
-  const res = await fetch(`/api/reports/${id}`, {
+  const res = await fetch(`${API_BASE}/api/reports/${id}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',

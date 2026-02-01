@@ -1,5 +1,7 @@
 import prisma from '../../prismaClient';
 import { geminiService, ReportInput, GeneratedReport } from '../../services/gemini.service';
+import PDFDocument from 'pdfkit';
+import { Readable } from 'stream';
 
 export interface CreateReportInput {
   userId: string;
@@ -124,5 +126,172 @@ export const reportsService = {
     if (!report) throw new Error('Report not found');
     if (report.generatedById !== userId) throw new Error('Not authorized');
     return report;
+  },
+
+  /**
+   * Generates Institution Report PDF
+   * With Timeline, Tasks, Certificates, Documents
+   * Format for Jobcenter/Beratungsstellen
+   */
+  async generateInstitutionPDF(
+    institutionId: string,
+    userId: string,
+    periodStart: Date,
+    periodEnd: Date
+  ): Promise<Buffer> {
+    // Verify user belongs to institution
+    const user = await prisma.user.findFirst({
+      where: {
+        user_id: userId,
+        institution_id: institutionId,
+      },
+      include: {
+        progresses: {
+          where: {
+            updated_at: {
+              gte: periodStart,
+              lte: periodEnd,
+            },
+          },
+          include: {
+            task: {
+              select: { title: true, description: true },
+            },
+          },
+          orderBy: { updated_at: 'asc' },
+        },
+        certificates: {
+          where: {
+            issued_date: {
+              gte: periodStart,
+              lte: periodEnd,
+            },
+          },
+          orderBy: { issued_date: 'asc' },
+        },
+        documents: {
+          where: {
+            uploaded_at: {
+              gte: periodStart,
+              lte: periodEnd,
+            },
+          },
+          orderBy: { uploaded_at: 'asc' },
+        },
+      },
+    });
+
+    if (!user) {
+      throw new Error('User not found or not assigned to institution');
+    }
+
+    // Create PDF
+    const doc = new PDFDocument({ size: 'A4', margin: 50 });
+    const chunks: Buffer[] = [];
+
+    doc.on('data', (chunk) => chunks.push(chunk));
+
+    // Header
+    doc
+      .fontSize(20)
+      .text('Fortschrittsbericht Schuldenkompass', { align: 'center' })
+      .moveDown();
+
+    doc.fontSize(12).text(`Teilnehmer: ${user.name || user.email}`, { align: 'left' });
+    doc.text(`Zeitraum: ${periodStart.toLocaleDateString('de-DE')} - ${periodEnd.toLocaleDateString('de-DE')}`);
+    doc.text(`Erstellt am: ${new Date().toLocaleDateString('de-DE')}`);
+    doc.moveDown(2);
+
+    // Overview Section
+    doc.fontSize(16).text('Übersicht', { underline: true });
+    doc.moveDown();
+    doc.fontSize(12);
+    doc.text(`Status: ${user.onboarding_status}`);
+    doc.text(`Level: ${user.level}`);
+    doc.text(`Gesammelte Punkte: ${user.total_points}`);
+    doc.text(`Stabilitätsscore: ${user.stability_score?.toFixed(1) || 'N/A'}`);
+    doc.moveDown(2);
+
+    // Progress Timeline
+    doc.fontSize(16).text('Fortschritts-Timeline', { underline: true });
+    doc.moveDown();
+    doc.fontSize(12);
+
+    if (user.progresses.length === 0) {
+      doc.text('Keine Fortschritte im angegebenen Zeitraum.');
+    } else {
+      user.progresses.forEach((progress, index) => {
+        const date = progress.updated_at.toLocaleDateString('de-DE');
+        doc.text(`${index + 1}. ${date} - ${progress.task?.title || 'Aufgabe'}`);
+        doc.fontSize(10).text(`   Status: ${progress.status}`, { indent: 20 });
+        if (progress.points_earned) {
+          doc.text(`   Punkte: ${progress.points_earned}`, { indent: 20 });
+        }
+        doc.fontSize(12).moveDown(0.5);
+      });
+    }
+    doc.moveDown(2);
+
+    // Certificates Section
+    doc.fontSize(16).text('Zertifikate & Abzeichen', { underline: true });
+    doc.moveDown();
+    doc.fontSize(12);
+
+    if (user.certificates.length === 0) {
+      doc.text('Keine Zertifikate im angegebenen Zeitraum.');
+    } else {
+      user.certificates.forEach((cert, index) => {
+        const date = cert.issued_date.toLocaleDateString('de-DE');
+        doc.text(`${index + 1}. ${cert.title} (${date})`);
+        if (cert.description) {
+          doc.fontSize(10).text(`   ${cert.description}`, { indent: 20 });
+          doc.fontSize(12);
+        }
+        doc.moveDown(0.5);
+      });
+    }
+    doc.moveDown(2);
+
+    // Documents Section
+    doc.fontSize(16).text('Hochgeladene Nachweise', { underline: true });
+    doc.moveDown();
+    doc.fontSize(12);
+
+    if (user.documents.length === 0) {
+      doc.text('Keine Dokumente im angegebenen Zeitraum.');
+    } else {
+      user.documents.forEach((doc_entry, index) => {
+        const date = doc_entry.uploaded_at.toLocaleDateString('de-DE');
+        doc.text(
+          `${index + 1}. ${doc_entry.document_category} - ${doc_entry.file_type} (${date})`
+        );
+        if (doc_entry.verification_status) {
+          doc
+            .fontSize(10)
+            .text(`   Verifikationsstatus: ${doc_entry.verification_status}`, { indent: 20 });
+          doc.fontSize(12);
+        }
+        doc.moveDown(0.5);
+      });
+    }
+    doc.moveDown(2);
+
+    // Footer
+    doc
+      .fontSize(10)
+      .text(
+        'Dieser Bericht wurde automatisch durch Schuldenkompass generiert.',
+        50,
+        doc.page.height - 70,
+        { align: 'center' }
+      );
+
+    doc.end();
+
+    // Wait for PDF to finish
+    return new Promise((resolve, reject) => {
+      doc.on('end', () => resolve(Buffer.concat(chunks)));
+      doc.on('error', reject);
+    });
   },
 };

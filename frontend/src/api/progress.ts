@@ -1,8 +1,6 @@
 import type { Progress, ProgressStatus, Document } from '../types';
 import { getCsrfToken } from '../utils/auth';
-import { handleApiResponse } from './client';
-
-const API_BASE = '/api';
+import { handleApiResponse, API_BASE } from './client';
 
 async function authFetch<T>(url: string, options: RequestInit = {}): Promise<T> {
   const csrfToken = getCsrfToken();

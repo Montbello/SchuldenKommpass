@@ -1,6 +1,7 @@
 import prisma from '../../prismaClient';
-import crypto from 'crypto';
 import { ProgressStatusCode } from './progress.types';
+import { unlockService } from '../../services/unlock.service';
+import crypto from 'crypto';
 
 export const progressService = {
   // Get progress entries for a user
@@ -69,25 +70,45 @@ export const progressService = {
     });
   },
 
-  // Verify progress (Advisor/Admin only)
+  // Verify progress (Admin/Advisor only)
   async verifyProgress(progressId: string, verified: boolean, points?: number) {
-    const progress = await prisma.progress.findUnique({
-      where: { progress_id: progressId },
-      include: { task: true },
-    });
+    const progress = await prisma.progress.findUnique({ where: { progress_id: progressId } });
     if (!progress) throw new Error('Progress not found');
 
-    // Calculate points based on task (simplified)
-    const earnedPoints = verified ? (points || progress.task?.estimated_time || 10) : 0;
+    const status = verified ? ProgressStatusCode.COMPLETED : ProgressStatusCode.REJECTED;
+    const pointsEarned = verified ? (points || 10) : 0;
 
-    return prisma.progress.update({
+    const updated = await prisma.progress.update({
       where: { progress_id: progressId },
       data: {
-        status: verified ? ProgressStatusCode.VERIFIED : ProgressStatusCode.REJECTED,
-        points_earned: earnedPoints,
+        status,
+        points_earned: pointsEarned,
       },
-      include: { task: true, proof_document: true },
     });
+
+    // Award points to user and check for level-up
+    if (verified && pointsEarned > 0) {
+      try {
+        const result = await unlockService.awardPoints(
+          progress.userId,
+          pointsEarned,
+          `Task completed: ${progressId}`,
+          'System'
+        );
+
+        // Log level-up if occurred
+        if (result.leveledUp) {
+          console.log(
+            `User ${progress.userId} leveled up! ${result.oldLevel} → ${result.newLevel}`
+          );
+        }
+      } catch (error) {
+        console.error('Failed to award points:', error);
+        // Don't fail the verification if points award fails
+      }
+    }
+
+    return updated;
   },
 
   // Create document record

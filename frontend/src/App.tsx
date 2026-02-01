@@ -22,6 +22,10 @@ import LandingPage from './pages/LandingPage';
 import AdvisorSelectionPage from './pages/AdvisorSelectionPage';
 import ChatPage from './pages/ChatPage';
 import ReportPage from './pages/ReportPage';
+import OnboardingWizard from './pages/Onboarding/OnboardingWizard';
+import AppointmentCalendar from './pages/Appointments/AppointmentCalendar';
+import CertificateOverview from './pages/Certificates/CertificateOverview';
+import InstitutionDashboard from './pages/InstitutionDashboard/InstitutionDashboard';
 
 function AppRoutes() {
   const [user, setUser] = useState<User | null>(getUser());
@@ -148,6 +152,42 @@ function AppRoutes() {
           element={
             <ProtectedRoute user={user}>
               <ReportPage user={user!} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/onboarding"
+          element={
+            <ProtectedRoute user={user}>
+              <OnboardingWizard user={user!} onComplete={() => navigate('/')} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/appointments"
+          element={
+            <ProtectedRoute user={user}>
+              <AppointmentCalendar user={user!} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/certificates"
+          element={
+            <ProtectedRoute user={user}>
+              <CertificateOverview user={user!} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/institution"
+          element={
+            <ProtectedRoute user={user}>
+              {user?.role === 'INSTITUTION' || user?.role === 'ADMIN' ? (
+                <InstitutionDashboard user={user!} />
+              ) : (
+                <Dashboard user={user!} />
+              )}
             </ProtectedRoute>
           }
         />
