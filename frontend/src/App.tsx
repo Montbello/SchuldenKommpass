@@ -197,8 +197,11 @@ function AppRoutes() {
 }
 
 function App() {
+  // Support GitHub Pages deployment with base path
+  const basename = import.meta.env.BASE_URL || '/';
+  
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <AppRoutes />
     </BrowserRouter>
   );
